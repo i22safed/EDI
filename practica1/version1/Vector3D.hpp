@@ -34,7 +34,7 @@ class Vector3D
   //! \name Atributos privados de la clase Vector3D
    private:
 
-        double vector_[2];
+        double vector_[3];
 
    //! \name Funciones o métodos públicos de la clase Vector3D
    public:
@@ -49,6 +49,20 @@ class Vector3D
           double get2()const{return vector_[1];};
           double get3()const{return vector_[2];};
 
+          double modulo();
+          double angulo(Vector3D v);
+
+          double alfa();
+          double beta();
+          double gamma();
+
+          double dotProduct(Vector3D v);
+          Vector3D crossProduct(Vector3D v);
+          double productoMixto(Vector3D  v,Vector3D  w);
+
+          void set1(double v);
+          void set2(double v);
+          void set3(double v); 
 
 	// COMPLETAR
 

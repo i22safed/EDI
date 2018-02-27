@@ -69,6 +69,109 @@ ed::Vector3D::Vector3D(ed::Vector3D const &v){
 
 }
 
+double ed::Vector3D::modulo(){
+
+	double modulo = sqrt(vector_[0]*vector_[0]+vector_[1]*vector_[1]+vector_[2]*vector_[2]);
+	assert (modulo == sqrt(get1()*get1()+get2()*get2()+get3()*get3()));
+	return modulo;
+
+}
+
+double ed::Vector3D::angulo(ed::Vector3D v){
+
+	assert(modulo()*v.modulo() > 0);
+	// En caso de que salga del rango [-1,1] asignar -1 o 1 directamente
+	double angulo=acos(vector_[0]*v.vector_[0]+vector_[1]*v.vector_[1]+vector_[2]*v.vector_[2])/(modulo()*v.modulo());
+	assert(angulo==acos(dotProduct(v)/modulo()*v.modulo()));
+	return angulo;
+
+}
+
+double ed::Vector3D::alfa(){
+
+	assert(modulo() > 0);
+	double anguloAlfa=(vector_[0]*1+vector_[1]*0+vector_[2]*0)/(modulo()+1);
+	assert(anguloAlfa==angulo(Vector3D(1,0,0)));
+	return anguloAlfa;
+
+}
+
+double ed::Vector3D::beta(){
+
+	assert(modulo()>0);
+	double anguloBeta=(vector_[0]*0+vector_[1]*1+vector_[2]*0)/(modulo()+1);
+	assert(anguloBeta==angulo(Vector3D(0,1,0)));
+	return anguloBeta;
+
+}
+
+double ed::Vector3D::gamma(){
+
+	assert(modulo() > 0);
+	double anguloGamma=(vector_[0]*0+vector_[1]*0+vector_[2]*1)/(modulo()+1);
+	assert(anguloGamma==angulo(Vector3D(0,0,1)));
+	return anguloGamma;
+
+}
+
+
+
+
+double ed::Vector3D::dotProduct(ed::Vector3D v){
+
+	double pdtoEscalar = (vector_[0]*vector_[0]+vector_[1]*vector_[1]+vector_[2]*vector_[2]);
+	assert(get1()*v.get1()+get2()*v.get2()+get3()*v.get3());
+	return pdtoEscalar;
+
+}
+
+Vector3D ed::Vector3D::crossProduct(ed::Vector3D v){
+
+	ed::Vector3D w(0,0,0);
+
+	w.vector_[0] = vector_[2]*v.vector_[3] - vector_[3]*v.vector_[2];
+	w.vector_[1] = -vector_[1]*v.vector_[3] + vector_[3]*v.vector_[1];
+	w.vector_[2] = vector_[1]*v.vector_[2] - vector_[2]*v.vector_[1];
+
+	// Postcondicion
+
+	assert(dotProduct(w)==0);
+	assert(v.dotProduct(w)==0);
+	assert (w.modulo() == modulo()*v.modulo()*sin(angulo(v)));
+
+	return w;
+
+}
+
+double ed::Vector3D::productoMixto(ed::Vector3D  v,ed::Vector3D  w){
+
+	double pdtoMixto = dotProduct(v.crossProduct(w));
+	assert(pdtoMixto == dotProduct(v.crossProduct(w)));
+	return pdtoMixto;
+
+}
+
+
+void ed::Vector3D::set1(double v){
+
+	vector_[0] = v;
+	assert(get1()==v);
+
+}
+
+void ed::Vector3D::set2(double v){
+
+	vector_[1] = v;
+	assert(get2()==v);
+
+}
+
+void ed::Vector3D::set3(double v){
+
+	vector_[2] = v;
+	assert(get3()==v);
+
+}
 
 
 // Producto "por un" escalar (prefijo): k * v
