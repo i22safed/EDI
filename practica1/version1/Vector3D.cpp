@@ -114,9 +114,6 @@ double ed::Vector3D::gamma(){
 
 }
 
-
-
-
 double ed::Vector3D::dotProduct(ed::Vector3D v){
 
 	double pdtoEscalar = (vector_[0]*vector_[0]+vector_[1]*vector_[1]+vector_[2]*vector_[2]);
@@ -173,14 +170,67 @@ void ed::Vector3D::set3(double v){
 
 }
 
+void ed::Vector3D::sumConst(double const &k){
 
+	ed::Vector3D old(vector_[0],vector_[1],vector_[2]);
 
+	vector_[0]+=k;
+	vector_[1]+=k;
+	vector_[2]+=k;
+
+	assert((get1()==old.get1()+k) and
+			(get1()==old.get1()+k) and
+			(get2()==old.get2()+k));
+
+}
+
+void ed::Vector3D::sumVect(ed::Vector3D const &v){
+
+	ed::Vector3D old(vector_[0],vector_[1],vector_[2]);
+
+	vector_[0]+=v.vector_[0];
+	vector_[1]+=v.vector_[1];
+	vector_[2]+=v.vector_[2];
+
+	assert((get1()==old.get1()+v.get1()) and
+			(get2()==old.get2()+v.get2()) and
+			(get3()==old.get3()+v.get3()));
+
+}
+
+void ed::Vector3D::multConst(double const &k){
+
+	ed::Vector3D old(vector_[0],vector_[1],vector_[2]);
+
+	vector_[0]*=k;
+	vector_[1]*=k;
+	vector_[2]*=k;
+
+	assert((get1()==old.get1()*k) and
+			(get1()==old.get1()*k) and
+			(get2()==old.get2()*k));
+
+}
+
+void ed::Vector3D::multVect(ed::Vector3D const &v){
+
+	ed::Vector3D old(vector_[0],vector_[1],vector_[2]);
+
+	vector_[0]*=v.vector_[0];
+	vector_[1]*=v.vector_[1];
+	vector_[2]*=v.vector_[2];
+
+	assert((get1()==old.get1()*v.get1()) and
+			(get2()==old.get2()*v.get2()) and
+			(get3()==old.get3()*v.get3()));
+
+}
 
 
 // Producto "por un" escalar (prefijo): k * v
 ed::Vector3D & operator* (double k, ed::Vector3D const & objeto)
 {
-	ed::Vector3D *vectorResultado = new ed::Vector3D();
+	ed::Vector3D * vectorResultado = new ed::Vector3D();
 
 	return *vectorResultado;
 }

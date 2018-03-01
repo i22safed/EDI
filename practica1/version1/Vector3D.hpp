@@ -64,7 +64,11 @@ class Vector3D
           void set2(double v);
           void set3(double v);
 
-          void sumConst(double k);
+          void sumConst(double const &k);
+          void sumVect(Vector3D const &v);
+          void multConst(double const &k);
+          void multVect(Vector3D const &v);
+
 
 	// COMPLETAR
 
