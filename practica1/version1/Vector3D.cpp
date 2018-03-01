@@ -174,12 +174,13 @@ void ed::Vector3D::set3(double v){
 }
 
 
+
+
+
 // Producto "por un" escalar (prefijo): k * v
 ed::Vector3D & operator* (double k, ed::Vector3D const & objeto)
 {
 	ed::Vector3D *vectorResultado = new ed::Vector3D();
-
-	// COMPLETAR
 
 	return *vectorResultado;
 }

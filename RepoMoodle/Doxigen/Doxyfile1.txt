@@ -1,0 +1,18 @@
+# Nombre del proyecto
+PROJECT_NAME           = "Clase Vertice2D"
+
+# Idioma: español
+OUTPUT_LANGUAGE        = Spanish
+
+# Muestra la parte privada
+EXTRACT_PRIVATE        = YES
+
+# Muestra los ficheros con extensión "cpp"
+SOURCE_BROWSER         = YES
+
+# No se genera la documentación en latex
+GENERATE_LATEX         = NO
+
+# Para generar fórmulas en LaTeX
+USE_MATHJAX = YES
+
