@@ -228,8 +228,8 @@ void ed::Vector3D::multVect(ed::Vector3D const &v){
 
 
 // Producto "por un" escalar (prefijo): k * v
-ed::Vector3D & operator* (double k, ed::Vector3D const & objeto)
-{
+ed::Vector3D & operator* (double k, ed::Vector3D const & objeto){
+
 	ed::Vector3D * vectorResultado = new ed::Vector3D();
 
 	return *vectorResultado;
@@ -238,19 +238,30 @@ ed::Vector3D & operator* (double k, ed::Vector3D const & objeto)
 
 // Sobrecarga del operador de salida
 // Se escriben por pantalla las coordenadas del vector 3D  de la forma (v1, v2, v3)
-ostream &operator<<(ostream &stream, ed::Vector3D const &objeto)
-{
-	// COMPLETAR
+ostream &operator<<(ostream &o, ed::Vector3D const &v){
 
-  return stream;
+	o << "(" << v.get1() << "," << v.get2() << "," << v.get3() << ")";
+
+	return o;
+
 }
 
 // Sobrecarga del operador de entrada
-istream &operator>>(istream &stream, ed::Vector3D &objeto)
+istream &operator>>(istream &i, ed::Vector3D &v)
 {
-  // COMPLETAR
 
-  return stream;
+	double v1,v2,v3;
+
+	std::cout << "Introduce valores para (a, b, c): ";
+   	i >> v1 >> v2 >> v3;
+	i.ignore();
+
+	v.set1(v1);
+	v.set2(v2);
+	v.set3(v3);
+
+   	return i;
+
 }
 
 } // Fin del espacio de nombres ed

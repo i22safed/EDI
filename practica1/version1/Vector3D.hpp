@@ -29,8 +29,8 @@ using std::ostream;
 namespace ed {
 
 //!  Definición de la clase Vector3D:  \f$ \vec{v} = (v_1, v_2, v_3) = v_1 \vec{i} + v_2 \vec{j} + v_3 \vec{k} \f$
-class Vector3D
-{
+class Vector3D{
+
   //! \name Atributos privados de la clase Vector3D
    private:
 
@@ -44,7 +44,7 @@ class Vector3D
           Vector3D(double v1,double v2,double v3);
           Vector3D(Vector3D const &v);
 
-          // Observadores
+     //! \name Observadores: funciones de consulta de Vector3D
           double get1()const{return vector_[0];};
           double get2()const{return vector_[1];};
           double get3()const{return vector_[2];};
@@ -60,28 +60,17 @@ class Vector3D
           Vector3D crossProduct(Vector3D v);
           double productoMixto(Vector3D  v,Vector3D  w);
 
+     //! \name Modificadores: funciones de modificación de Vector3D
           void set1(double v);
           void set2(double v);
           void set3(double v);
 
+     //! \name Operadores de la clase
           void sumConst(double const &k);
           void sumVect(Vector3D const &v);
           void multConst(double const &k);
           void multVect(Vector3D const &v);
 
-
-	// COMPLETAR
-
-	//! \name Observadores: funciones de consulta de Vector3D
-
-	// COMPLETAR
-
-	//! \name Modificadores: funciones de modificación de Vector3D
-
-	// COMPLETAR
-
-
-    //! \name Operadores de la clase
 
 	// COMPLETAR COMENTARIOS DE DOXYGEN
 	Vector3D & operator=(Vector3D const &objeto);
@@ -104,13 +93,13 @@ class Vector3D
 //! \name Funciones que utilizan un objetos de la clase Vector3D, pero que no pertenecen a la clase Vector3D
 
 	// COMPLETAR COMENTARIOS DE DOXYGEN
-    Vector3D & operator* (double k, Vector3D const & objeto);
+     Vector3D & operator* (double k, Vector3D const & objeto);
 
 	// COMPLETAR COMENTARIOS DE DOXYGEN
-    istream &operator>>(istream &stream, Vector3D &objeto);
+     istream &operator>>(istream &stream, Vector3D &objeto);
 
 	// COMPLETAR COMENTARIOS DE DOXYGEN
-	ostream &operator<<(ostream &stream, Vector3D const &objeto);
+     ostream &operator<<(ostream &stream, Vector3D const &objeto);
 
 
 } // \brief Fin de namespace ed.
