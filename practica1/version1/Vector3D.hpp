@@ -73,10 +73,28 @@ class Vector3D{
 
 
 	// COMPLETAR COMENTARIOS DE DOXYGEN
-	Vector3D & operator=(Vector3D const &objeto);
+	    Vector3D & operator=(Vector3D const &v);
 
 	// COMPLETAR COMENTARIOS DE DOXYGEN
-	bool operator == (Vector3D const &objeto) const;
+	    bool operator == (Vector3D const &v) const{
+
+              if((abs(v.vector_[0]-vector_[0])<COTA_ERROR)and
+              (abs(v.vector_[1]-vector_[1])<COTA_ERROR)and
+              (abs(v.vector_[2]-vector_[2])<COTA_ERROR)){
+
+                   assert((get1()==v.get1())and
+                   (get2()==v.get2())and
+                   (get3()==v.get3()));
+
+                   return true;
+
+              }else{
+
+                   return false;
+
+              }
+
+         };
 
 	// COMPLETAR EL RESTO DE OPERADORES
 

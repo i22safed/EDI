@@ -247,8 +247,7 @@ ostream &operator<<(ostream &o, ed::Vector3D const &v){
 }
 
 // Sobrecarga del operador de entrada
-istream &operator>>(istream &i, ed::Vector3D &v)
-{
+istream &operator>>(istream &i, ed::Vector3D &v){
 
 	double v1,v2,v3;
 
@@ -263,5 +262,30 @@ istream &operator>>(istream &i, ed::Vector3D &v)
    	return i;
 
 }
+
+// Operadores
+/*
+bool ed::Vector3D::operator == (ed::Vector3D const &v){
+
+	if((abs(v.vector_[0]-vector_[0])<COTA_ERROR)and
+	(abs(v.vector_[1]-vector_[1])<COTA_ERROR)and
+	(abs(v.vector_[2]-vector_[2])<COTA_ERROR)){
+
+		assert((get1()==v.get1())and
+		(get2()==v.get2())and
+		(get3()==v.get3()));
+
+		return true;
+
+	}else{
+
+		return false;
+
+	}
+
+
+}
+
+*/
 
 } // Fin del espacio de nombres ed
