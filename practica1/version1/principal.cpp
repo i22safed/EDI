@@ -79,8 +79,8 @@ int main()
 				std::cout << RESET;
 
 // QUITAR LOS COMENTARIOS CUANDO SE HAYA CODIFICADO LA CLASE Vector3D
-//				std::cout << "k = ";
-//				std::cin >> k;
+				std::cout << "k = ";
+				std::cin >> k;
 
 				break;
 
@@ -92,10 +92,10 @@ int main()
 
 // QUITAR LOS COMENTARIOS CUANDO SE HAYA CODIFICADO LA CLASE Vector3D
 				// Número escalar
-//				std::cout  << BIYELLOW << "k = " << RESET << k << std::endl;
+				std::cout  << BIYELLOW << "k = " << RESET << k << std::endl;
 
 				// Vectores
-//				ed::escribirVectores(u,v,w);
+				ed::escribirVectores(u,v,w);
 
 				break;
 

@@ -112,7 +112,7 @@ void ed::leerVectores(ed::Vector3D &u, ed::Vector3D &v, ed::Vector3D &w)
 void ed::escribirVectores(ed::Vector3D const &u, ed::Vector3D const &v, ed::Vector3D const &w)
 {
  // QUITAR LOS "COMENTARIOS DE BLOQUE" CUANDO SE HAYA CODIFICADO LA CLASE Vector3D
-/*
+
 	// Usando la función de la clase
 	std::cout  << BIYELLOW << "u = "  << RESET ;
 	u.escribirVector3D();
@@ -121,7 +121,7 @@ void ed::escribirVectores(ed::Vector3D const &u, ed::Vector3D const &v, ed::Vect
 	// Usando la sobrecarga del operador >>
 	std::cout  << BIYELLOW << "v = " << RESET  << v << std::endl;
 	std::cout  << BIYELLOW << "w = " << RESET << w << std::endl;
-*/
+
  	return;
 }
 

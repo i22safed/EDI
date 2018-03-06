@@ -264,7 +264,7 @@ void ed::Vector3D::leerVector3D(){
 
 }
 
-void ed::Vector3D::escribirVector3D(){
+void ed::Vector3D::escribirVector3D()const{
 
 	std::cout << "(" << this->get1() << ", " << this->get2() << ", " << this->get3() << ")" << std::endl;
 

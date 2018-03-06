@@ -223,8 +223,8 @@ class Vector3D{
 	//! \name Funciones lectura y escritura de la clase Vector3D
 
      void leerVector3D();
-     void escribirVector3D();
-     
+     void escribirVector3D()const;
+
 
 	// COMPLETAR
 
