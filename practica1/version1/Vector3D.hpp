@@ -73,33 +73,158 @@ class Vector3D{
 
 
 	// COMPLETAR COMENTARIOS DE DOXYGEN
-	    Vector3D & operator=(Vector3D const &v);
+	    inline Vector3D & operator = (ed::Vector3D const &v){
+
+              if(this != &v){
+
+                   set1(v.get1());
+                   set2(v.get2());
+                   set3(v.get3());
+
+                   assert((this->get1() == v.get1()) and
+                         (this->get2() == v.get2()) and
+                         (this->get3() == v.get3()));
+               }
+
+               return *this;
+         };
 
 	// COMPLETAR COMENTARIOS DE DOXYGEN
-	    bool operator == (Vector3D const &v) const{
+          inline bool operator == (ed::Vector3D const &v) const{
 
-              if((abs(v.vector_[0]-vector_[0])<COTA_ERROR)and
-              (abs(v.vector_[1]-vector_[1])<COTA_ERROR)and
-              (abs(v.vector_[2]-vector_[2])<COTA_ERROR)){
+              if((std::abs(v.get1()-this->get1())<COTA_ERROR)and
+              (std::abs(v.get2()-this->get2())<COTA_ERROR)and
+              (std::abs(v.get3()-this->get3())<COTA_ERROR)){
 
-                   assert((get1()==v.get1())and
-                   (get2()==v.get2())and
-                   (get3()==v.get3()));
+                    assert((get1()==v.get1())and
+                    (get2()==v.get2())and
+                    (get3()==v.get3()));
 
-                   return true;
+                    return true;
 
               }else{
 
-                   return false;
+                    return false;
 
               }
 
-         };
+          };
+
+          inline Vector3D operator + (ed::Vector3D const &v){
+
+               ed::Vector3D valorDevuelto(0,0,0);
+
+               valorDevuelto.set1(get1()+v.get1());
+               valorDevuelto.set2(get2()+v.get2());
+               valorDevuelto.set3(get3()+v.get3());
+
+               assert((std::abs(valorDevuelto.get1()-get1()-v.get1()) < COTA_ERROR) and
+                    (std::abs(valorDevuelto.get2()-get2()-v.get2()) < COTA_ERROR) and
+                    (std::abs(valorDevuelto.get3()-get3()-v.get3()) < COTA_ERROR));
+
+               return valorDevuelto;
+
+          };
+
+          inline Vector3D operator + (){
+
+               ed::Vector3D valorDevuelto(0,0,0);
+
+               valorDevuelto.set1(get1());
+               valorDevuelto.set2(get2());
+               valorDevuelto.set3(get3());
+
+               assert(((get1()-valorDevuelto.get1())<COTA_ERROR) and
+                         ((get1()-valorDevuelto.get1())<COTA_ERROR)and
+                         ((get1()-valorDevuelto.get1())<COTA_ERROR));
+
+               return valorDevuelto;
+
+          };
+
+          inline Vector3D operator - (ed::Vector3D const &v){
+
+               ed::Vector3D valorDevuelto(0,0,0);
+
+               valorDevuelto.set1(get1()-v.get1());
+               valorDevuelto.set2(get2()-v.get2());
+               valorDevuelto.set3(get3()-v.get3());
+
+               assert((std::abs(valorDevuelto.get1()-get1()+v.get1()) < COTA_ERROR) and
+                    (std::abs(valorDevuelto.get2()-get2()+v.get2()) < COTA_ERROR) and
+                    (std::abs(valorDevuelto.get3()-get3()+v.get3()) < COTA_ERROR));
+
+               return valorDevuelto;
+          };
+
+          inline Vector3D operator - (){
+
+               ed::Vector3D valorDevuelto(0,0,0);
+
+               valorDevuelto.set1(-get1());
+               valorDevuelto.set2(-get2());
+               valorDevuelto.set3(-get3());
+
+               assert(((get1()-valorDevuelto.get1())<COTA_ERROR) and
+                         ((get2()-valorDevuelto.get2())<COTA_ERROR)and
+                         ((get3()-valorDevuelto.get3())<COTA_ERROR));
+
+               return valorDevuelto;
+
+          };
+
+          inline Vector3D operator * (double k){
+
+               ed::Vector3D valorDevuelto(0,0,0);
+
+               valorDevuelto.set1(k*get1());
+               valorDevuelto.set2(k*get2());
+               valorDevuelto.set3(k*get3());
+
+               assert(((valorDevuelto.get1()-(get1()*k)) < COTA_ERROR) and
+                    ((valorDevuelto.get2()-(get2()*k)) < COTA_ERROR) and
+                    ((valorDevuelto.get3()-(get3()*k)) < COTA_ERROR));
+
+               return valorDevuelto;
+
+          };
+
+          inline double operator * (ed::Vector3D const &v){
+
+               double valorDevuelto = get1()*v.get1()+get2()*v.get2()+get3()*v.get3();
+               assert((valorDevuelto-(get1()*v.get1()+get2()*v.get2()+get3()*v.get3())) < COTA_ERROR);
+               return valorDevuelto;
+
+          };
+
+          inline Vector3D operator ^ (ed::Vector3D v){
+
+               ed::Vector3D valorDevuelto(0,0,0);
+
+               valorDevuelto.set1(get2()*v.get3()-get3()*v.get2());
+               valorDevuelto.set1(-get1()*v.get3()+get3()*v.get1());
+               valorDevuelto.set1(get1()*v.get2()-get2()*v.get1());
+
+               assert(dotProduct(valorDevuelto)==0);
+               assert(v.dotProduct(valorDevuelto)==0);
+               assert(valorDevuelto.modulo() == modulo()*v.modulo()*sin(angulo(v)));
+
+               //valorDevuelto = crossProduct(v);
+
+               return valorDevuelto;
+
+          };
+
+
 
 	// COMPLETAR EL RESTO DE OPERADORES
 
 
 	//! \name Funciones lectura y escritura de la clase Vector3D
+
+     void leerVector3D();
+     void escribirVector3D();
+     
 
 	// COMPLETAR
 
@@ -111,14 +236,13 @@ class Vector3D{
 //! \name Funciones que utilizan un objetos de la clase Vector3D, pero que no pertenecen a la clase Vector3D
 
 	// COMPLETAR COMENTARIOS DE DOXYGEN
-     Vector3D & operator* (double k, Vector3D const & objeto);
+     Vector3D & operator* (double k, Vector3D const & v);
 
 	// COMPLETAR COMENTARIOS DE DOXYGEN
-     istream &operator>>(istream &stream, Vector3D &objeto);
+     istream &operator>>(istream &stream, Vector3D &v);
 
 	// COMPLETAR COMENTARIOS DE DOXYGEN
-     ostream &operator<<(ostream &stream, Vector3D const &objeto);
-
+     ostream &operator<<(ostream &stream, Vector3D const &v);
 
 } // \brief Fin de namespace ed.
 

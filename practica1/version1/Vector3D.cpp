@@ -44,9 +44,9 @@ namespace ed{
 
 ed::Vector3D::Vector3D(){
 
-	vector_[0]=0;
-	vector_[1]=0;
-	vector_[2]=0;
+	set1(0);
+	set2(0);
+	set3(0);
 	assert((get1()==0) and (get2()==0) and (get3()==0));
 
 }
@@ -134,7 +134,7 @@ Vector3D ed::Vector3D::crossProduct(ed::Vector3D v){
 
 	assert(dotProduct(w)==0);
 	assert(v.dotProduct(w)==0);
-	assert (w.modulo() == modulo()*v.modulo()*sin(angulo(v)));
+	assert (w.modulo()==modulo()*v.modulo()*sin(angulo(v)));
 
 	return w;
 
@@ -228,9 +228,17 @@ void ed::Vector3D::multVect(ed::Vector3D const &v){
 
 
 // Producto "por un" escalar (prefijo): k * v
-ed::Vector3D & operator* (double k, ed::Vector3D const & objeto){
+ed::Vector3D & operator* (double k, ed::Vector3D const & v){
 
 	ed::Vector3D * vectorResultado = new ed::Vector3D();
+
+	vectorResultado->set1(k*v.get1());
+	vectorResultado->set2(k*v.get2());
+	vectorResultado->set3(k*v.get3());
+
+	assert((vectorResultado->get1()==k*v.get1()) and
+			(vectorResultado->get2()==k*v.get2()) and
+			(vectorResultado->get3()==k*v.get3()));
 
 	return *vectorResultado;
 }
@@ -238,6 +246,30 @@ ed::Vector3D & operator* (double k, ed::Vector3D const & objeto){
 
 // Sobrecarga del operador de salida
 // Se escriben por pantalla las coordenadas del vector 3D  de la forma (v1, v2, v3)
+void ed::Vector3D::leerVector3D(){
+
+	double x, y, z;
+
+	std::cout << "Valor de x → ";
+	std::cin >> x;
+	std::cout << "Valor de y → ";
+	std::cin >> y;
+	std::cout << "Valor de z → ";
+	std::cin >> z;
+
+	this->set1(x);
+	this->set2(y);
+	this->set3(z);
+
+
+}
+
+void ed::Vector3D::escribirVector3D(){
+
+	std::cout << "(" << this->get1() << ", " << this->get2() << ", " << this->get3() << ")" << std::endl;
+
+}
+
 ostream &operator<<(ostream &o, ed::Vector3D const &v){
 
 	o << "(" << v.get1() << "," << v.get2() << "," << v.get3() << ")";
@@ -262,30 +294,5 @@ istream &operator>>(istream &i, ed::Vector3D &v){
    	return i;
 
 }
-
-// Operadores
-/*
-bool ed::Vector3D::operator == (ed::Vector3D const &v){
-
-	if((abs(v.vector_[0]-vector_[0])<COTA_ERROR)and
-	(abs(v.vector_[1]-vector_[1])<COTA_ERROR)and
-	(abs(v.vector_[2]-vector_[2])<COTA_ERROR)){
-
-		assert((get1()==v.get1())and
-		(get2()==v.get2())and
-		(get3()==v.get3()));
-
-		return true;
-
-	}else{
-
-		return false;
-
-	}
-
-
-}
-
-*/
 
 } // Fin del espacio de nombres ed
