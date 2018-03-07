@@ -131,7 +131,7 @@ void ed::escribirVectores(ed::Vector3D const &u, ed::Vector3D const &v, ed::Vect
 void ed::observadoresDeVectores(ed::Vector3D const &u, ed::Vector3D const &v)
 {
  // QUITAR LOS "COMENTARIOS DE BLOQUE" CUANDO SE HAYA CODIFICADO LA CLASE Vector3D
-/*
+
 	// Usando la función de la clase
 	std::cout  << BIYELLOW << "u = "  << RESET ;
 	u.escribirVector3D();
@@ -162,7 +162,7 @@ void ed::observadoresDeVectores(ed::Vector3D const &u, ed::Vector3D const &v)
 	}
 
 
-	//
+
 
 	std::cout << BIBLUE << "Datos de u = " << RESET << u << std::endl;
  	std::cout << BIYELLOW << "u.get1() = " << RESET << u.get1() << std::endl;
@@ -184,7 +184,7 @@ void ed::observadoresDeVectores(ed::Vector3D const &u, ed::Vector3D const &v)
 		std::cout << BIYELLOW << "u = " << RESET << u << std::endl;
 	}
 
-	// //////////////////////
+
 
 	std::cout << BIBLUE << "Datos de v = " << RESET << v << std::endl;
  	std::cout << BIYELLOW << "v.get1() = " << RESET << v.get1() << std::endl;
@@ -206,7 +206,7 @@ void ed::observadoresDeVectores(ed::Vector3D const &u, ed::Vector3D const &v)
 		std::cout << BIYELLOW << "v = " << RESET << v << std::endl;
 	}
 
-*/
+
 
  	return;
 }

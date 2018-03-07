@@ -49,14 +49,14 @@ class Vector3D{
           double get2()const{return vector_[1];};
           double get3()const{return vector_[2];};
 
-          double modulo();
-          double angulo(Vector3D v);
+          double modulo()const;
+          double angulo(Vector3D v)const;
 
-          double alfa();
-          double beta();
-          double gamma();
+          double alfa()const;
+          double beta()const;
+          double gamma()const;
 
-          double dotProduct(Vector3D v);
+          double dotProduct(Vector3D const &v);
           Vector3D crossProduct(Vector3D v);
           double productoMixto(Vector3D  v,Vector3D  w);
 

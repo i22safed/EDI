@@ -69,7 +69,7 @@ ed::Vector3D::Vector3D(ed::Vector3D const &v){
 
 }
 
-double ed::Vector3D::modulo(){
+double ed::Vector3D::modulo()const{
 
 	double modulo = sqrt(vector_[0]*vector_[0]+vector_[1]*vector_[1]+vector_[2]*vector_[2]);
 	assert (modulo == sqrt(get1()*get1()+get2()*get2()+get3()*get3()));
@@ -77,7 +77,7 @@ double ed::Vector3D::modulo(){
 
 }
 
-double ed::Vector3D::angulo(ed::Vector3D v){
+double ed::Vector3D::angulo(ed::Vector3D v)const{
 
 	assert(modulo()*v.modulo() > 0);
 	// En caso de que salga del rango [-1,1] asignar -1 o 1 directamente
@@ -87,7 +87,7 @@ double ed::Vector3D::angulo(ed::Vector3D v){
 
 }
 
-double ed::Vector3D::alfa(){
+double ed::Vector3D::alfa()const{
 
 	assert(modulo() > 0);
 	double anguloAlfa=(vector_[0]*1+vector_[1]*0+vector_[2]*0)/(modulo()+1);
@@ -96,7 +96,7 @@ double ed::Vector3D::alfa(){
 
 }
 
-double ed::Vector3D::beta(){
+double ed::Vector3D::beta()const{
 
 	assert(modulo()>0);
 	double anguloBeta=(vector_[0]*0+vector_[1]*1+vector_[2]*0)/(modulo()+1);
@@ -105,7 +105,7 @@ double ed::Vector3D::beta(){
 
 }
 
-double ed::Vector3D::gamma(){
+double ed::Vector3D::gamma()const{
 
 	assert(modulo() > 0);
 	double anguloGamma=(vector_[0]*0+vector_[1]*0+vector_[2]*1)/(modulo()+1);
@@ -114,7 +114,7 @@ double ed::Vector3D::gamma(){
 
 }
 
-double ed::Vector3D::dotProduct(ed::Vector3D v){
+double ed::Vector3D::dotProduct(ed::Vector3D const &v){
 
 	double pdtoEscalar = (vector_[0]*vector_[0]+vector_[1]*vector_[1]+vector_[2]*vector_[2]);
 	assert(get1()*v.get1()+get2()*v.get2()+get3()*v.get3());
