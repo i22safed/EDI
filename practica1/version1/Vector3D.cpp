@@ -82,7 +82,7 @@ double ed::Vector3D::angulo(ed::Vector3D v)const{
 	assert(modulo()*v.modulo() > 0);
 	// En caso de que salga del rango [-1,1] asignar -1 o 1 directamente
 	double angulo=acos(vector_[0]*v.vector_[0]+vector_[1]*v.vector_[1]+vector_[2]*v.vector_[2])/(modulo()*v.modulo());
-	assert(angulo==acos(dotProduct(v)/modulo()*v.modulo()));
+	assert(angulo==acos(dotProduct(v)/(modulo()*v.modulo())));
 	return angulo;
 
 }
@@ -114,7 +114,7 @@ double ed::Vector3D::gamma()const{
 
 }
 
-double ed::Vector3D::dotProduct(ed::Vector3D const &v){
+double ed::Vector3D::dotProduct(ed::Vector3D v)const{
 
 	double pdtoEscalar = (vector_[0]*vector_[0]+vector_[1]*vector_[1]+vector_[2]*vector_[2]);
 	assert(get1()*v.get1()+get2()*v.get2()+get3()*v.get3());
@@ -122,7 +122,7 @@ double ed::Vector3D::dotProduct(ed::Vector3D const &v){
 
 }
 
-Vector3D ed::Vector3D::crossProduct(ed::Vector3D v){
+Vector3D ed::Vector3D::crossProduct(ed::Vector3D v)const{
 
 	ed::Vector3D w(0,0,0);
 
@@ -140,7 +140,7 @@ Vector3D ed::Vector3D::crossProduct(ed::Vector3D v){
 
 }
 
-double ed::Vector3D::productoMixto(ed::Vector3D  v,ed::Vector3D  w){
+double ed::Vector3D::productoMixto(ed::Vector3D  v,ed::Vector3D  w)const{
 
 	double pdtoMixto = dotProduct(v.crossProduct(w));
 	assert(pdtoMixto == dotProduct(v.crossProduct(w)));

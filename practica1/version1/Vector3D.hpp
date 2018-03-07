@@ -56,9 +56,9 @@ class Vector3D{
           double beta()const;
           double gamma()const;
 
-          double dotProduct(Vector3D const &v);
-          Vector3D crossProduct(Vector3D v);
-          double productoMixto(Vector3D  v,Vector3D  w);
+          double dotProduct(Vector3D v)const;
+          Vector3D crossProduct(Vector3D v)const;
+          double productoMixto(Vector3D  v,Vector3D  w)const;
 
      //! \name Modificadores: funciones de modificación de Vector3D
           void set1(double v);
@@ -110,7 +110,7 @@ class Vector3D{
 
           };
 
-          inline Vector3D operator + (ed::Vector3D const &v){
+          inline Vector3D operator + (ed::Vector3D const &v)const{
 
                ed::Vector3D valorDevuelto(0,0,0);
 
@@ -126,7 +126,7 @@ class Vector3D{
 
           };
 
-          inline Vector3D operator + (){
+          inline Vector3D operator + ()const{
 
                ed::Vector3D valorDevuelto(0,0,0);
 
@@ -142,7 +142,7 @@ class Vector3D{
 
           };
 
-          inline Vector3D operator - (ed::Vector3D const &v){
+          inline Vector3D operator - (ed::Vector3D const &v)const{
 
                ed::Vector3D valorDevuelto(0,0,0);
 
@@ -157,7 +157,7 @@ class Vector3D{
                return valorDevuelto;
           };
 
-          inline Vector3D operator - (){
+          inline Vector3D operator - ()const{
 
                ed::Vector3D valorDevuelto(0,0,0);
 
@@ -173,7 +173,7 @@ class Vector3D{
 
           };
 
-          inline Vector3D operator * (double k){
+          inline Vector3D operator * (double k)const{
 
                ed::Vector3D valorDevuelto(0,0,0);
 
@@ -189,7 +189,7 @@ class Vector3D{
 
           };
 
-          inline double operator * (ed::Vector3D const &v){
+          inline double operator * (ed::Vector3D v)const{
 
                double valorDevuelto = get1()*v.get1()+get2()*v.get2()+get3()*v.get3();
                assert((valorDevuelto-(get1()*v.get1()+get2()*v.get2()+get3()*v.get3())) < COTA_ERROR);
@@ -197,7 +197,7 @@ class Vector3D{
 
           };
 
-          inline Vector3D operator ^ (ed::Vector3D v){
+          inline Vector3D operator ^ (ed::Vector3D v)const{
 
                ed::Vector3D valorDevuelto(0,0,0);
 
