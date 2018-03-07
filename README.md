@@ -135,5 +135,5 @@ Real productoMixto(v, w:Vector3D)
 ##### Sobrecarga del operador de salida ostream &operator<<(ostream &stream, Vector3D const &v);  
 
 
-![](https://img.shields.io/badge/status-72%25-yellowgreen.svg)
+![](https://img.shields.io/badge/status-85%25-yellowgreen.svg)
 ![](https://img.shields.io/badge/compilable-yes-green.svg)
