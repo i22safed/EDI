@@ -1,32 +1,27 @@
 /*!
    \file Vector3D.hpp
    \brief Fichero de definición de la clase Vector3D: vector libre de tres dimensiones
+   \author David Sánchez Fernández
+   \date     2018-03-08
+
 */
 
 #ifndef _VECTOR3D_HPP_
 #define _VECTOR3D_HPP_
 
-// Entrada y salida
-#include <iostream>
 
-// Para usar abs
-#include <cmath>
+#include <iostream>      // cout,cin,etc.
+#include <cmath>         // abs
+#include <cassert>       // asserts → precondiciones/postcondiciones
 
-// Para controlar las pre y post condiciones mediante asertos
-#include <cassert>
+using std::istream;      // Uso de <<
+using std::ostream;      // Uso de >>
 
-// COMPLETAR, SI ES PRECISO
-
-
-// Para la sobrecarga de los operadores de flujo: << y >>
-using std::istream;
-using std::ostream;
-
-#define COTA_ERROR   1.0e-6 //!< Cota de error para la comparación números reales
+#define COTA_ERROR   1.0e-6  // !< Cota de error para la comparación números reales
 
 
-// Se incluye la clase Vector3D dentro del espacio de nombre de la asigantura: ed
-namespace ed {
+
+namespace ed { // Inclusión de la clase Vector3D dentro del espacio de nombres de la asigantura: ed
 
 //!  Definición de la clase Vector3D:  \f$ \vec{v} = (v_1, v_2, v_3) = v_1 \vec{i} + v_2 \vec{j} + v_3 \vec{k} \f$
 class Vector3D{
@@ -34,24 +29,119 @@ class Vector3D{
   //! \name Atributos privados de la clase Vector3D
    private:
 
-        double vector_[3];
+        double vector_[3]; //!< Vector de 3 dimensiones de la clase Vector3D
 
    //! \name Funciones o métodos públicos de la clase Vector3D
    public:
 
 	//! \name Constructores de la clase Vector3D
+
+          /*!
+               \brief     Constructor que crea un Vector3D nulo
+               \param     N/A
+               \pre       N/A
+               \post      assert((get1()==0) and (get2()==0) and (get3()==0));
+               \sa        set1(0),set2(0),set3(0)
+          */
           Vector3D();
+
+
+          /*!
+               \brief     Constructor que crea un Vector3D a partir de las componentes pasadas
+               \param     double v1, v2, v3 (Componentes del Vector3D)
+               \pre       N/A
+               \post      assert((get1()==v1) and (get2()==v2) and (get3()==v3));
+               \sa        set1(0),set2(0),set3(0)
+          */
           Vector3D(double v1,double v2,double v3);
+
+          /*!
+               \brief     Constructor que crea un Vector3D a partir de otro
+               \param     Vector3D const &v (Objeto de la clase Vector3D)
+               \pre       N/A
+               \post      assert((get1()==v1) and (get2()==v2) and (get3()==v3));
+               \sa        set1(0),set2(0),set3(0)
+          */
           Vector3D(Vector3D const &v);
 
      //! \name Observadores: funciones de consulta de Vector3D
-          double get1()const{return vector_[0];};
-          double get2()const{return vector_[1];};
-          double get3()const{return vector_[2];};
 
+          /*!
+
+               \brief   Función que devuelve el valor de "x" de un Vector3D
+               \warning Se utiliza el modificador const en la definición de la función
+               \note    Función inline
+               \return  Componente "x" del Vector3D (tipo double)
+               \pre     N/A
+               \post    N/A
+               \sa      get1(),get2(),get3()
+
+          */
+          inline double get1()const{return vector_[0];};
+
+          /*!
+
+               \brief   Función que devuelve el valor de "y" de un Vector3D
+               \warning Se utiliza el modificador const en la definición de la función
+               \note    Función inline
+               \return  Componente "y" del Vector3D (tipo double)
+               \pre     N/A
+               \post    N/A
+               \sa      get1(),get2(),get3()
+
+          */
+          inline double get2()const{return vector_[1];};
+
+          /*!
+
+               \brief   Función que devuelve el valor de "z" de un Vector3D
+               \warning Se utiliza el modificador const en la definición de la función
+               \note    Función inline
+               \return  Componente "z" del Vector3D (tipo double)
+               \pre     N/A
+               \post    N/A
+               \sa      get1(),get2(),get3()
+
+          */
+          inline double get3()const{return vector_[2];};
+
+
+          /*!
+
+               \brief   Función que devuelve el modulo del Vector3D
+               \warning Se utiliza el modificador const en la definición de la función
+               \return  Modulo del Vector3D (tipo double)
+               \pre     N/A
+               \post    assert (modulo == sqrt(get1()*get1()+get2()*get2()+get3()*get3()));
+               \sa      get1(),get2(),get3()
+
+          */
           double modulo()const;
+
+
+          /*!
+
+               \brief   Función que devuelve el angulo del Vector3D
+               \warning Se utiliza el modificador const en la definición de la función
+               \return  Modulo del Vector3D (tipo double)
+               \pre     N/A
+               \post    assert (modulo == sqrt(get1()*get1()+get2()*get2()+get3()*get3()));
+               \sa      get1(),get2(),get3()
+
+          */
           double angulo(Vector3D v)const;
 
+
+          /*!
+
+               \brief   Función que devuelve el angulo entre el vector actual con el unitario de x (1,0,0)
+               \warning Se utiliza el modificador const en la definición de la función
+               \return  Angulo ente (v1,v2,v3) y (1,0,0) (tipo double)
+               \pre     assert(modulo()*v.modulo() > 0);
+               \post    assert(angulo==acos(dotProduct(v)/(modulo()*v.modulo())));
+               \sa      get1(),get2(),get3()
+
+          */
           double alfa()const;
           double beta()const;
           double gamma()const;
@@ -71,9 +161,7 @@ class Vector3D{
           void multConst(double const &k);
           void multVect(Vector3D const &v);
 
-
-	// COMPLETAR COMENTARIOS DE DOXYGEN
-	    inline Vector3D & operator = (ed::Vector3D const &v){
+          inline Vector3D & operator = (ed::Vector3D const &v){
 
               if(this != &v){
 
@@ -88,8 +176,6 @@ class Vector3D{
 
                return *this;
          };
-
-	// COMPLETAR COMENTARIOS DE DOXYGEN
           inline bool operator == (ed::Vector3D const &v) const{
 
               if((std::abs(v.get1()-this->get1())<COTA_ERROR)and
@@ -109,7 +195,6 @@ class Vector3D{
               }
 
           };
-
           inline Vector3D operator + (ed::Vector3D const &v)const{
 
                ed::Vector3D valorDevuelto(0,0,0);
@@ -125,7 +210,6 @@ class Vector3D{
                return valorDevuelto;
 
           };
-
           inline Vector3D operator + ()const{
 
                ed::Vector3D valorDevuelto(0,0,0);
@@ -141,7 +225,6 @@ class Vector3D{
                return valorDevuelto;
 
           };
-
           inline Vector3D operator - (ed::Vector3D const &v)const{
 
                ed::Vector3D valorDevuelto(0,0,0);
@@ -156,7 +239,6 @@ class Vector3D{
 
                return valorDevuelto;
           };
-
           inline Vector3D operator - ()const{
 
                ed::Vector3D valorDevuelto(0,0,0);
@@ -172,7 +254,6 @@ class Vector3D{
                return valorDevuelto;
 
           };
-
           inline Vector3D operator * (double k)const{
 
                ed::Vector3D valorDevuelto(0,0,0);
@@ -188,7 +269,6 @@ class Vector3D{
                return valorDevuelto;
 
           };
-
           inline double operator * (ed::Vector3D v)const{
 
                double valorDevuelto = get1()*v.get1()+get2()*v.get2()+get3()*v.get3();
@@ -196,7 +276,6 @@ class Vector3D{
                return valorDevuelto;
 
           };
-
           inline Vector3D operator ^ (ed::Vector3D v)const{
 
                ed::Vector3D valorDevuelto(0,0,0);
@@ -215,36 +294,21 @@ class Vector3D{
 
           };
 
-
-
-	// COMPLETAR EL RESTO DE OPERADORES
-
-
 	//! \name Funciones lectura y escritura de la clase Vector3D
 
-     void leerVector3D();
-     void escribirVector3D()const;
+          void leerVector3D();
+          void escribirVector3D()const;
 
-
-	// COMPLETAR
-
-}; // Fin de la definición de la clase Vector3D
-
-
-//////////////////////////////////////////////////////////////////////////////////////
+};
 
 //! \name Funciones que utilizan un objetos de la clase Vector3D, pero que no pertenecen a la clase Vector3D
 
-	// COMPLETAR COMENTARIOS DE DOXYGEN
      Vector3D & operator* (double k, Vector3D const & v);
-
-	// COMPLETAR COMENTARIOS DE DOXYGEN
      istream &operator>>(istream &stream, Vector3D &v);
-
-	// COMPLETAR COMENTARIOS DE DOXYGEN
      ostream &operator<<(ostream &stream, Vector3D const &v);
 
 } // \brief Fin de namespace ed.
 
 //  _VECTOR3D_HPP_
+
 #endif
