@@ -46,7 +46,7 @@ namespace ed{
 
 	double ed::Vector3D::modulo()const{
 
-		double modulo = sqrt(vector_[0]*vector_[0]+vector_[1]*vector_[1]+vector_[2]*vector_[2]);
+		double modulo = sqrt(get1()*get1()+get2()*get2()+get3()*get3());
 		assert (modulo == sqrt(get1()*get1()+get2()*get2()+get3()*get3()));
 		return modulo;
 
@@ -55,9 +55,19 @@ namespace ed{
 	double ed::Vector3D::angulo(ed::Vector3D v)const{
 
 		assert(modulo()*v.modulo() > 0);
-		// En caso de que salga del rango [-1,1] asignar -1 o 1 directamente
-		double angulo=acos(vector_[0]*v.vector_[0]+vector_[1]*v.vector_[1]+vector_[2]*v.vector_[2])/(modulo()*v.modulo());
-		assert(angulo==acos(dotProduct(v)/(modulo()*v.modulo())));
+
+		double angulo=acos((get1()*v.get1()+get2()*v.get2()+get3()*v.get3())/(modulo()*v.modulo()));
+
+		if(angulo>1){
+			angulo = 1;
+		}
+		if(angulo<-1){
+			angulo = -1;
+		}
+
+		// cambiar por la cota de error
+		assert(std::abs(angulo-(acos(dotProduct(v)/(modulo()*v.modulo()))))<COTA_ERROR);
+
 		return angulo;
 
 	}
@@ -65,8 +75,8 @@ namespace ed{
 	double ed::Vector3D::alfa()const{
 
 		assert(modulo() > 0);
-		double anguloAlfa=(vector_[0]*1+vector_[1]*0+vector_[2]*0)/(modulo()+1);
-		assert(anguloAlfa==angulo(Vector3D(1,0,0)));
+		double anguloAlfa=(get1()*1+get2()*0+get3()*0)/(modulo()+1);
+		assert(std::abs(anguloAlfa-angulo(Vector3D(1,0,0)))<COTA_ERROR);
 		return anguloAlfa;
 
 	}
@@ -91,7 +101,7 @@ namespace ed{
 
 	double ed::Vector3D::dotProduct(ed::Vector3D v)const{
 
-		double pdtoEscalar = (vector_[0]*vector_[0]+vector_[1]*vector_[1]+vector_[2]*vector_[2]);
+		double pdtoEscalar = (get1()*v.get1()+get2()*v.get2()+get3()*v.get3());
 		assert(get1()*v.get1()+get2()*v.get2()+get3()*v.get3());
 		return pdtoEscalar;
 
