@@ -587,15 +587,15 @@ class Vector3D{
          */
           inline Vector3D operator - ()const{
 
-               ed::Vector3D valorDevuelto(0,0,0);
+               ed::Vector3D valorDevuelto(0.0,0.0,0.0);
 
                valorDevuelto.set1(-get1());
                valorDevuelto.set2(-get2());
                valorDevuelto.set3(-get3());
 
-               assert(((get1()-valorDevuelto.get1())<COTA_ERROR) and
-                         ((get2()-valorDevuelto.get2())<COTA_ERROR)and
-                         ((get3()-valorDevuelto.get3())<COTA_ERROR));
+               assert(((get1()+valorDevuelto.get1())<COTA_ERROR) and
+                         ((get2()+valorDevuelto.get2())<COTA_ERROR)and
+                         ((get3()+valorDevuelto.get3())<COTA_ERROR));
 
                return valorDevuelto;
 

@@ -56,17 +56,19 @@ namespace ed{
 
 		assert(modulo()*v.modulo() > 0);
 
-		double angulo=acos((get1()*v.get1()+get2()*v.get2()+get3()*v.get3())/(modulo()*v.modulo()));
+		double angulo = acos(dotProduct(v)/(modulo()*v.modulo()));
 
-		if(angulo>1){
+		if(angulo > 1){
 			angulo = 1;
 		}
-		if(angulo<-1){
+		if(angulo < -1){
 			angulo = -1;
 		}
+		if(angulo > -1 and angulo < 1){
 
-		// cambiar por la cota de error
-		assert(std::abs(angulo-(acos(dotProduct(v)/(modulo()*v.modulo()))))<COTA_ERROR);
+			assert((angulo == acos(dotProduct(v)/(modulo()*v.modulo()))) );
+
+		}
 
 		return angulo;
 
@@ -75,7 +77,7 @@ namespace ed{
 	double ed::Vector3D::alfa()const{
 
 		assert(modulo() > 0);
-		double anguloAlfa=(get1()*1+get2()*0+get3()*0)/(modulo()+1);
+		double anguloAlfa=(angulo(Vector3D(1,0,0)));
 		assert(std::abs(anguloAlfa-angulo(Vector3D(1,0,0)))<COTA_ERROR);
 		return anguloAlfa;
 
@@ -84,8 +86,8 @@ namespace ed{
 	double ed::Vector3D::beta()const{
 
 		assert(modulo()>0);
-		double anguloBeta=(vector_[0]*0+vector_[1]*1+vector_[2]*0)/(modulo()+1);
-		assert(anguloBeta==angulo(Vector3D(0,1,0)));
+		double anguloBeta=(angulo(Vector3D(0,1,0)));
+		assert(std::abs(anguloBeta-angulo(Vector3D(0,1,0)))<COTA_ERROR);
 		return anguloBeta;
 
 	}
@@ -93,8 +95,8 @@ namespace ed{
 	double ed::Vector3D::gamma()const{
 
 		assert(modulo() > 0);
-		double anguloGamma=(vector_[0]*0+vector_[1]*0+vector_[2]*1)/(modulo()+1);
-		assert(anguloGamma==angulo(Vector3D(0,0,1)));
+		double anguloGamma=(angulo(Vector3D(0,0,1)));
+		assert(std::abs(anguloGamma-angulo(Vector3D(0,0,1)))<COTA_ERROR);
 		return anguloGamma;
 
 	}
@@ -102,7 +104,7 @@ namespace ed{
 	double ed::Vector3D::dotProduct(ed::Vector3D v)const{
 
 		double pdtoEscalar = (get1()*v.get1()+get2()*v.get2()+get3()*v.get3());
-		assert(get1()*v.get1()+get2()*v.get2()+get3()*v.get3());
+		assert(std::abs(pdtoEscalar-(get1()*v.get1()+get2()*v.get2()+get3()*v.get3()))<COTA_ERROR);
 		return pdtoEscalar;
 
 	}
@@ -115,9 +117,10 @@ namespace ed{
 		w.vector_[1] = -vector_[1]*v.vector_[3] + vector_[3]*v.vector_[1];
 		w.vector_[2] = vector_[1]*v.vector_[2] - vector_[2]*v.vector_[1];
 
-		assert(dotProduct(w)==0);
-		assert(v.dotProduct(w)==0);
-		assert (w.modulo()==modulo()*v.modulo()*sin(angulo(v)));
+		std::cout << "El valor de dotProduct<" << dotProduct(w) << ">";
+		assert(std::abs(dotProduct(w))< COTA_ERROR);
+		assert(std::abs(v.dotProduct(w)) < COTA_ERROR);
+		assert (std::abs(w.modulo()-(modulo()*v.modulo()*sin(angulo(v))))<COTA_ERROR);
 
 		return w;
 
