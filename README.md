@@ -4,7 +4,7 @@
 ![](https://img.shields.io/badge/compilable-yes-green.svg)
 
 ##### Versión 1
-![](https://img.shields.io/badge/status-100%25-yellowgreen.svg)
+![](https://img.shields.io/badge/status-100%25-green.svg)
 
 ##### Versión 2
 ![](https://img.shields.io/badge/status-70%25-yellowgreen.svg)
