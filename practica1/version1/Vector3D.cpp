@@ -113,9 +113,9 @@ namespace ed{
 
 		ed::Vector3D w(0.0,0.0,0.0);
 
-		w.vector_[0] = vector_[2]*v.vector_[3] - vector_[3]*v.vector_[2];
-		w.vector_[1] = -vector_[1]*v.vector_[3] + vector_[3]*v.vector_[1];
-		w.vector_[2] = vector_[1]*v.vector_[2] - vector_[2]*v.vector_[1];
+		w.vector_[0] = vector_[1]*v.vector_[2] - vector_[2]*v.vector_[1];
+		w.vector_[1] = -vector_[0]*v.vector_[2] + vector_[2]*v.vector_[0];
+		w.vector_[2] = vector_[0]*v.vector_[1] - vector_[1]*v.vector_[0];
 
 		std::cout << "El valor de dotProduct<" << dotProduct(w) << ">";
 		assert(std::abs(dotProduct(w))< COTA_ERROR);
