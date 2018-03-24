@@ -8,3 +8,6 @@
 
 ##### Versión 2
 ![](https://img.shields.io/badge/status-70%25-yellowgreen.svg)
+
+
+### Práctica 2. Provincia compuesta por una lista de municipios
