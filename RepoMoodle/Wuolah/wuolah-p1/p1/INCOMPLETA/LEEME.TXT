@@ -1,0 +1,7 @@
+Se ha omitido el código que deben completar los estudiantes en los siguientes ficheros
+
+- funcionesAuxiliares.cpp
+
+- Poligono2DInterfaz.hpp 
+- Poligono2D.hpp 
+- Poligono2D.cpp
