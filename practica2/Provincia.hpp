@@ -1,9 +1,9 @@
-/*!	
+/*!
 	\file  Provincia.hpp
 	\brief Definición de la clase Provincia
-	\author  
-	\date  
-	\version 
+	\author
+	\date
+	\version
 
 */
 
@@ -28,13 +28,13 @@
 // Hay que incluir los prototipos de las demás funciones
 
 
-/*!	
+/*!
 	\namespace ed
 	\brief Espacio de nombres para la Provincia Estructuras de Datos
 
 */
 namespace ed{
-/*!	
+/*!
 
   \class Provincia
   \brief Definición de la clase Provincia
@@ -55,19 +55,46 @@ class Provincia
 
 	//!	\name  Métodos públicos de la clase Provincia
 
-  public: 
+  public:
 
 	//!	\name Constructor
+
+	Provincia(std::string nombre="",int codigo=0){
+		setNombre(nombre);
+		setCodigo(codigo);
+
+		assert(getNombre()==_nombre);
+		assert(getCodigo()==_codigo);
+		assert(hayMunicipios()==true);
+
+	};
+
 
 
 	/////////////////////////////////////////////////////////////////////
 
 	//!	\name Observadores
 
+	inline std::string getNombre(){return _nombre;};
+	inline int getCodigo(){return _codigo;};
+	inline bool hayMunicipios(){
+		return _listaMunicipios.isEmpty();
+	};
+
+	inline int getNumeroMunicipios(){
+
+		int nMun = 0;
+
+
+		return nMun;
+	};
 
 	/////////////////////////////////////////////////////////////////////
 
 	//!	\name Modificadores
+
+	inline void setNombre(std::string nombre){_nombre = nombre;};
+	inline void setCodigo(int codigo){_codigo = codigo;};
 
 
 
