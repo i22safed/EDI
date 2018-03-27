@@ -140,6 +140,27 @@ namespace ed {
 
      bool find(ed::Municipio const & m);
 
+     bool isFirstItem() const;
+
+     bool isLastItem() const;
+
+     ed::Municipio const & getCurrentItem() const;
+
+     ed::Municipio const & getPreviousItem() const;
+
+     ed::Municipio const & getNextItem() const;
+
+     void gotoHead();
+
+     void gotoLast();
+
+     void gotoPrevious();
+
+     void gotoNext();
+
+     void insert(ed::Municipio const & item);
+
+     void remove();
 
 	// COMPLETAR EL RESTO DE OBSERVADORES PÚBLICOS
 
