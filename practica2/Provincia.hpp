@@ -11,11 +11,9 @@
 #define _PROVINCIA_HPP_
 
 // Para comprobar las pre y post condiciones
+
 #include <cassert>
-
 #include <string>
-
-
 #include "ListaDoblementeEnlazadaOrdenadaMunicipios.hpp"
 
 
@@ -75,26 +73,80 @@ class Provincia
 
 	//!	\name Observadores
 
-	inline std::string getNombre(){return _nombre;};
-	inline int getCodigo(){return _codigo;};
-	inline bool hayMunicipios(){
+	inline std::string getNombre() const {return _nombre;};
+
+	inline int getCodigo() const {return _codigo;};
+
+	inline bool hayMunicipios() const {
+
 		return _listaMunicipios.isEmpty();
 	};
 
-	inline int getNumeroMunicipios(){
+	inline int getNumeroMunicipios() const {
 
-		int nMun = 0;
+		return _listaMunicipios.nItems();
 
-
-		return nMun;
 	};
+
+	inline bool existeMunicipio(std::string const &nombre){
+
+		ed::Municipio m;
+		m.setNombre(nombre);
+
+		if (_listaMunicipios.isEmpty() == true){
+			return false;
+		}else{
+			return _listaMunicipios.find(m);
+		}
+
+	};
+
+	inline ed::Municipio getMunicipios(std::string const &nombre){
+
+		Municipio m;
+
+		assert(existeMunicipio(m.getNombre()) == true);
+
+		// Falta función de buscar
+
+		return m;
+
+	};
+
+	inline int getHombres(){
+
+
+		return 6;
+	};
+
+	inline int getMujeres(){
+
+
+		return 6;
+	};
+
+	inline int getTotalHabitantes(){
+
+		int valorDevuelto = 0;
+		assert(valorDevuelto == (getHombres()+getMujeres()));
+
+		return 6;
+	}
+
 
 	/////////////////////////////////////////////////////////////////////
 
 	//!	\name Modificadores
 
-	inline void setNombre(std::string nombre){_nombre = nombre;};
-	inline void setCodigo(int codigo){_codigo = codigo;};
+	inline void setNombre(std::string nombre){
+		_nombre = nombre;
+		assert(getNombre() == nombre);
+	};
+
+	inline void setCodigo(int codigo){
+		_codigo = codigo;
+		assert(getCodigo() == codigo);
+	};
 
 
 
