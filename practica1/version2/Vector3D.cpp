@@ -67,7 +67,7 @@ namespace ed{
 			}
 			if(angulo > -1 and angulo < 1){
 
-				assert((angulo == acos(dotProduct(v)/(modulo()*v.modulo()))) );
+				assert((std::abs(angulo - acos(dotProduct(v)/(modulo()*v.modulo())))) < COTA_ERROR);
 
 			}
 
