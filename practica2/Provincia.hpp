@@ -103,34 +103,71 @@ class Provincia
 
 	inline ed::Municipio getMunicipios(std::string const &nombre){
 
-		Municipio m;
+		ed::Municipio m;
 
-		assert(existeMunicipio(m.getNombre()) == true);
+		assert(existeMunicipio(nombre)==true);
 
-		// Falta función de buscar
+		_listaMunicipios.gotoHead();
 
-		return m;
+		while(not _listaMunicipios.isLastItem()){
+
+			m = _listaMunicipios.getCurrentItem();
+			if(m.getNombre()==nombre){
+				return m;
+			}
+
+			_listaMunicipios.gotoNext();
+
+		}
 
 	};
 
-	inline int getHombres(){
+	inline int getTotalHombres(){
 
+		ed::Municipio m;
+		int valorDevuelto = 0;
 
-		return 6;
+		_listaMunicipios.gotoHead();
+
+		while(not _listaMunicipios.isLastItem()){
+
+			m = _listaMunicipios.getCurrentItem();
+			valorDevuelto += m.getHombres();
+			_listaMunicipios.gotoNext();
+
+		}
+
+		return valorDevuelto;
+
 	};
 
-	inline int getMujeres(){
+	inline int getTotalMujeres(){
 
+		ed::Municipio m;
+		int valorDevuelto = 0;
 
-		return 6;
+		_listaMunicipios.gotoHead();
+
+		while(not _listaMunicipios.isLastItem()){
+
+			m = _listaMunicipios.getCurrentItem();
+			valorDevuelto += m.getMujeres();
+			_listaMunicipios.gotoNext();
+
+		}
+
+		return valorDevuelto;
+
 	};
 
 	inline int getTotalHabitantes(){
 
-		int valorDevuelto = 0;
-		assert(valorDevuelto == (getHombres()+getMujeres()));
+		int valorDevuelto = getTotalHombres()+getTotalMujeres();
 
-		return 6;
+		assert(valorDevuelto == getTotalHombres()+getTotalMujeres());
+
+		return valorDevuelto;
+
 	}
 
 
@@ -148,11 +185,75 @@ class Provincia
 		assert(getCodigo() == codigo);
 	};
 
+	inline void insertarMunicipio(ed::Municipio const & m){
+
+		ed::Provincia old;
+
+		assert(existeMunicipio(m.getNombre())==false);
+
+		_listaMunicipios.insert(m);
+
+		assert(existeMunicipio(m.getNombre())==true);
+		assert(getNumeroMunicipios() == (old.getNumeroMunicipios() + 1));
+
+	};
+
+
+	inline void borrarMunicipio(std::string const & nombre){
+
+		ed::Provincia old;
+		ed::Municipio m;
+
+		assert(existeMunicipio(getNombre())==true);
+
+		_listaMunicipios.gotoHead();
+
+		while(not _listaMunicipios.isLastItem()){
+
+			m = _listaMunicipios.getCurrentItem();
+			if(m.getNombre() == nombre){
+				_listaMunicipios.remove();
+			}
+
+			_listaMunicipios.gotoNext();
+
+		}
+
+		assert(existeMunicipio(m.getNombre())==false);
+		assert(getNumeroMunicipios() == (old.getNumeroMunicipios() + 1));
+
+	};
+
+	inline void borrarTodosLosMunicipios(){
+
+		// Meter remove all 
+
+	}
+
 
 
 	/////////////////////////////////////////////////////////////////////
 
 	//! \name Función de escritura de la clase Provincia
+
+	void escribirMunicipios(){
+
+		ed::Municipio m;
+
+		std::cout << getCodigo() << " " << getNombre() << "\n";
+
+		while(not _listaMunicipios.isLastItem()){
+
+
+
+		}
+
+
+
+
+	}
+
+
 
 
 

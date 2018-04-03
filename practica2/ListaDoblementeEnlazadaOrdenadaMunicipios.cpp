@@ -343,6 +343,5 @@ void ed::ListaDoblementeEnlazadaOrdenadaMunicipios::remove(){
 		delete getCurrent();
 		gotoHead();
 	}
-
-
+	
 }

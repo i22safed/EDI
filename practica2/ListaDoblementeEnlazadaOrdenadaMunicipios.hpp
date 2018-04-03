@@ -158,7 +158,7 @@ namespace ed {
 
      void gotoNext();
 
-     void insert(ed::Municipio const & item);
+     void insert(ed::Municipio const & m);
 
      void remove();
 
