@@ -47,7 +47,7 @@ namespace ed{
 	double ed::Vector3D::modulo()const{
 
 		double modulo = sqrt(get1()*get1()+get2()*get2()+get3()*get3());
-		assert (modulo == sqrt(get1()*get1()+get2()*get2()+get3()*get3()));
+		assert (std::abs(modulo - sqrt(get1()*get1()+get2()*get2()+get3()*get3()))<COTA_ERROR);
 		return modulo;
 
 	}
@@ -66,7 +66,7 @@ namespace ed{
 		}
 		if(angulo > -1 and angulo < 1){
 
-			assert((angulo == acos(dotProduct(v)/(modulo()*v.modulo()))) );
+			assert(std::abs(angulo - acos(dotProduct(v)/(modulo()*v.modulo()))) < COTA_ERROR );
 
 		}
 

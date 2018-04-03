@@ -48,7 +48,7 @@ namespace ed{
 		double ed::Vector3D::modulo()const{
 
 			double modulo = sqrt(get1()*get1()+get2()*get2()+get3()*get3());
-			assert (modulo == sqrt(get1()*get1()+get2()*get2()+get3()*get3()));
+			assert (std::abs(modulo - sqrt(get1()*get1()+get2()*get2()+get3()*get3())));
 			return modulo;
 
 		}
