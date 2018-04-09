@@ -1,8 +1,8 @@
 /*!
 	\file   ListaDoblementeEnlazadaOrdenadaMunicipios.hpp
 	\brief  Clase de una lista doblemente enlazada y ordenada de Municipios
-	\author
-	\date
+	\author David Sanchez Fernandez
+	\date 09/04/2018
 	\version 1.0
 
 */
@@ -90,12 +90,12 @@ namespace ed {
 	*/
 	inline ListaDoblementeEnlazadaOrdenadaMunicipios()
     {
-            this->_head = NULL;
-            this->_current = NULL;
+            setHead(NULL);
+            setCurrent(NULL);
 
             #ifndef NDEBUG
             // Se comprueba la postcondición
-            assert(this->isEmpty());
+            assert(isEmpty()==true);
             #endif //NDEBUG
 	}
 
@@ -109,12 +109,12 @@ namespace ed {
 	*/
 	~ListaDoblementeEnlazadaOrdenadaMunicipios ()
      {
-          this->_head = NULL;
-          this->_current = NULL;
+          setHead(NULL);
+          setCurrent(NULL);
 
           #ifndef NDEBUG
                // Se comprueba la postcondición
-               assert(this->isEmpty());
+               assert(isEmpty()==true);
           #endif //NDEBUG
      }
 
@@ -129,10 +129,10 @@ namespace ed {
     */
 	inline bool isEmpty() const{
 
-          if (this->_head == NULL && this->_current == NULL){
-                return true;
+          if(getHead()==NULL){
+               return true;
           }else{
-                return false;
+               return false;
           }
 	}
 
@@ -161,6 +161,8 @@ namespace ed {
      void insert(ed::Municipio const & m);
 
      void remove();
+
+     void removeAll();
 
 	// COMPLETAR EL RESTO DE OBSERVADORES PÚBLICOS
 

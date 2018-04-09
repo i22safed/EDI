@@ -1,9 +1,9 @@
 /*!
 	\file  Provincia.hpp
 	\brief Definición de la clase Provincia
-	\author
-	\date
-	\version
+	\author David Sánchez
+	\date 09/04/2018
+	\version v1.0
 
 */
 
@@ -16,10 +16,6 @@
 #include <string>
 #include "ListaDoblementeEnlazadaOrdenadaMunicipios.hpp"
 
-
-// DEBES COMPLETAR O MODIFICAR EL CÓDIGO DE LA CLASE Provincia
-
-// DEBES COMPLETAR LOS COMENTARIOS DE DOXYGEN
 
 // IMPORTANTE
 // Se incluyen los prototipos de las funciones virtuales que hay que redefinir
@@ -38,8 +34,8 @@ namespace ed{
   \brief Definición de la clase Provincia
 
 */
-class Provincia
-{
+class Provincia{
+
 	//!	\name Métodos públicos de la clase Provincia
 
 	private:
@@ -49,13 +45,23 @@ class Provincia
 	  	ed::ListaDoblementeEnlazadaOrdenadaMunicipios _listaMunicipios; //!<  \brief Lista de municipios de la Provincia
 
 
-	/////////////////////////////////////////////////////////////////////
-
 	//!	\name  Métodos públicos de la clase Provincia
 
   public:
 
 	//!	\name Constructor
+
+	/*!
+		\fn        Provincia(string,int)
+		\brief     Constructor una provincia inicializando el nombre a
+					\n cadena vacia y el codigo a 0
+		\param     string: nombre de la provincia
+		\param     int: codigo de la provincia
+		\pre       N/A
+		\post     assert(getNombre()==_nombre);
+		\post	assert(getCodigo()==_codigo);
+		\post	assert(hayMunicipios()==false);
+	*/
 
 	Provincia(std::string nombre="",int codigo=0){
 		setNombre(nombre);
@@ -63,172 +69,158 @@ class Provincia
 
 		assert(getNombre()==_nombre);
 		assert(getCodigo()==_codigo);
-		assert(hayMunicipios()==true);
+		assert(hayMunicipios()==false);
 
 	};
 
-
-
-	/////////////////////////////////////////////////////////////////////
 
 	//!	\name Observadores
 
+	/*!
+		\fn 		 inline std::string getNombre() const;
+		\brief     Observador del atributo _nombre
+		\note      Función inline
+		\param     N/A
+		\pre       N/A
+		\post      N/A
+
+	*/
+
 	inline std::string getNombre() const {return _nombre;};
 
+	/*!
+		\fn 		 std::string getNombre() const{}
+		\brief     Observador del atributo _codigo
+		\note      Función inline
+		\param     N/A
+		\pre       N/A
+		\post      N/A
+
+	*/
 	inline int getCodigo() const {return _codigo;};
 
-	inline bool hayMunicipios() const {
 
-		return _listaMunicipios.isEmpty();
-	};
+	/*!
+		\fn 		 inline int getCodigo() const{}
+		\brief     Observador que devuelve true si hay municipios en la
+				\n prinvincia y false en caso contrario
+		\note      Función inline
+		\param     N/A
+		\pre       N/A
+		\post      N/A
 
-	inline int getNumeroMunicipios() const {
-
-		return _listaMunicipios.nItems();
-
-	};
-
-	inline bool existeMunicipio(std::string const &nombre){
-
-		ed::Municipio m;
-		m.setNombre(nombre);
-
-		if (_listaMunicipios.isEmpty() == true){
-			return false;
-		}else{
-			return _listaMunicipios.find(m);
-		}
-
-	};
-
-	inline ed::Municipio getMunicipios(std::string const &nombre){
-
-		ed::Municipio m;
-
-		assert(existeMunicipio(nombre)==true);
-
-		_listaMunicipios.gotoHead();
-
-		while(not _listaMunicipios.isLastItem()){
-
-			m = _listaMunicipios.getCurrentItem();
-			if(m.getNombre()==nombre){
-				return m;
-			}
-
-			_listaMunicipios.gotoNext();
-
-		}
-
-	};
-
-	inline int getTotalHombres(){
-
-		ed::Municipio m;
-		int valorDevuelto = 0;
-
-		_listaMunicipios.gotoHead();
-
-		while(not _listaMunicipios.isLastItem()){
-
-			m = _listaMunicipios.getCurrentItem();
-			valorDevuelto += m.getHombres();
-			_listaMunicipios.gotoNext();
-
-		}
-
-		return valorDevuelto;
-
-	};
-
-	inline int getTotalMujeres(){
-
-		ed::Municipio m;
-		int valorDevuelto = 0;
-
-		_listaMunicipios.gotoHead();
-
-		while(not _listaMunicipios.isLastItem()){
-
-			m = _listaMunicipios.getCurrentItem();
-			valorDevuelto += m.getMujeres();
-			_listaMunicipios.gotoNext();
-
-		}
-
-		return valorDevuelto;
-
-	};
-
-	inline int getTotalHabitantes(){
-
-		int valorDevuelto = getTotalHombres()+getTotalMujeres();
-
-		assert(valorDevuelto == getTotalHombres()+getTotalMujeres());
-
-		return valorDevuelto;
-
-	}
+	*/
+	inline bool hayMunicipios() const {return not _listaMunicipios.isEmpty();};
 
 
-	/////////////////////////////////////////////////////////////////////
+	/*!
+		\fn 		 inline int getNumeroMunicipios() const{}
+		\brief     Observador que devuelve el numero de municipios de la
+				\n provincia
+		\note      Función inline
+		\param     N/A
+		\pre       N/A
+		\post      N/A
+
+	*/
+	inline int getNumeroMunicipios() const {return _listaMunicipios.nItems();};
+
+	/*!
+		\fn 		 bool existeMunicipio(std::string const &nombre);
+		\brief     Observador que comprueba existe un municipio dentro de la
+				\n provincia
+		\note      Función inline
+		\param     string: nombre del municipio a buscar
+		\pre       N/A
+		\post      N/A
+
+	*/
+	bool existeMunicipio(std::string const &nombre);
+
+
+	/*!
+		\fn 		 ed::Municipio const & getMunicipio(std::string const &nombre)
+		\brief     Observador que devuelve una referencia constante objeto
+				\n de tipo municipio en caso de exista dentro de la provincia
+		\param     string: nombre del municipio
+		\pre       assert(existeMunicipio(nombre)==true);
+		\post      N/A
+
+	*/
+	ed::Municipio const & getMunicipio(std::string const &nombre);
+
+
+	/*!
+		\fn int getTotalHombres();
+		\brief     Observador que devuelve el numero total de hombres
+				\n de la provincia
+		\pre       N/A
+		\post      N/A
+
+	*/
+	int getTotalHombres();
+
+	/*!
+		\fn int getTotalMujeres();
+		\brief     Observador que devuelve el numero total de mujeres
+				\n de la provincia
+		\pre       N/A
+		\post      N/A
+
+	*/
+	int getTotalMujeres();
+
+
+	/*!
+		\fn        int getTotalHabitantes()
+		\brief     Observador que devuelve el numero total de habitantes
+				\n de la provincia
+		\pre       N/A
+		\post      N/A
+
+	*/
+	int getTotalHabitantes();
+
 
 	//!	\name Modificadores
 
-	inline void setNombre(std::string nombre){
-		_nombre = nombre;
-		assert(getNombre() == nombre);
-	};
 
-	inline void setCodigo(int codigo){
-		_codigo = codigo;
-		assert(getCodigo() == codigo);
-	};
+	/*!
+		\fn        void setNombre(std::string nombre);
+		\brief     Modificador del atributo _nombre de la clase
+		\param     string: nombre de la provincia
+		\pre       N/A
+		\post     assert(getNombre() == nombre);
 
-	inline void insertarMunicipio(ed::Municipio const & m){
-
-		ed::Provincia old;
-
-		assert(existeMunicipio(m.getNombre())==false);
-
-		_listaMunicipios.insert(m);
-
-		assert(existeMunicipio(m.getNombre())==true);
-		assert(getNumeroMunicipios() == (old.getNumeroMunicipios() + 1));
-
-	};
+	*/
+	void setNombre(std::string nombre);
 
 
-	inline void borrarMunicipio(std::string const & nombre){
+	/*!
+		\fn        void setCodigo(int codigo);
+		\brief     Modificador del atributo _codigo de la clase
+		\param     int: codigo de la provincia
+		\pre       N/A
+		\post     assert(getCodigo() == codigo);
 
-		ed::Provincia old;
-		ed::Municipio m;
+	*/
+	void setCodigo(int codigo);
 
-		assert(existeMunicipio(getNombre())==true);
+	/*!
+		\fn        void insertarMunicipio(ed::Municipio const & m);
+		\brief     Inserta un municipio en la lista de municipios
+				\n _listaMunicipios()
+		\param     int: codigo de la provincia
+		\pre       assert(existeMunicipio(m.getNombre())==false);
+		\post      assert(existeMunicipio(m.getNombre())==false);
+	     \post 	 assert(getNumeroMunicipios() == (old + 1));
 
-		_listaMunicipios.gotoHead();
+	*/
+	void insertarMunicipio(ed::Municipio const & m);
 
-		while(not _listaMunicipios.isLastItem()){
+	void borrarMunicipio(std::string const & nombre);
 
-			m = _listaMunicipios.getCurrentItem();
-			if(m.getNombre() == nombre){
-				_listaMunicipios.remove();
-			}
-
-			_listaMunicipios.gotoNext();
-
-		}
-
-		assert(existeMunicipio(m.getNombre())==false);
-		assert(getNumeroMunicipios() == (old.getNumeroMunicipios() + 1));
-
-	};
-
-	inline void borrarTodosLosMunicipios(){
-
-		// Meter remove all 
-
-	}
+	void borrarTodosLosMunicipios();
 
 
 
@@ -236,30 +228,17 @@ class Provincia
 
 	//! \name Función de escritura de la clase Provincia
 
-	void escribirMunicipios(){
-
-		ed::Municipio m;
-
-		std::cout << getCodigo() << " " << getNombre() << "\n";
-
-		while(not _listaMunicipios.isLastItem()){
-
-
-
-		}
-
-
-
-
-	}
-
-
-
+	void escribirMunicipios(std::string const & nombre);
 
 
 	/////////////////////////////////////////////////////////////////////
 
 	//! Operaciones con ficheros
+
+	bool cargarFichero(std::string const & nombre);
+
+	bool grabarFichero(std::string const & nombre);
+
 
 
 }; //Fin de la clase  Provincia
