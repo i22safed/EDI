@@ -19,16 +19,18 @@
 int ed::ListaDoblementeEnlazadaOrdenadaMunicipios::nItems() const {
 
 	int numeroItem=0;
-    	  NodoDoblementeEnlazadoMunicipio *puntero;
-    	  puntero=getHead();
+     if(isEmpty()==false){
 
-    	while (puntero!=NULL)
-      { //tiene que estar llena
-    			puntero=puntero->getNext();
-    			numeroItem++;
-    	}
+		NodoDoblementeEnlazadoMunicipio *puntero;
+	   	puntero=getHead();
 
-    	return numeroItem;
+	   	while (puntero!=NULL){ //tiene que estar llena
+	   			puntero=puntero->getNext();
+	   			numeroItem++;
+	   	}
+   	}
+
+   	return numeroItem;
 }
 
 
@@ -36,35 +38,37 @@ bool ed::ListaDoblementeEnlazadaOrdenadaMunicipios::find(ed::Municipio  const & 
 
 	// Si la lista está vacía, no lo encuentra
 	if(isEmpty()==true){
-
-		return false;
+	return false;
 	}
 
-	gotoHead();
+	gotoHead(); //llevo el puntero a la cabeza
 
 	while(isLastItem()==false){
-
-		if(m == getCurrentItem()){
-
-			#ifndef NDEBUG
-	   			assert( getCurrentItem()==m);
-	   		#endif
+		if(m ==getCurrentItem()){
 
 			return true;
+
+			#ifndef NDEBUG
+			assert( getCurrentItem()==m);
+			#endif
+
 		}else{
 
 			gotoNext();
+
 		}
 	}
 
 	if(m ==getCurrentItem()){
 
-		#ifndef NDEBUG
-	    	assert( getCurrentItem()==m);
-	    	#endif
-
 		return true;
+
+		#ifndef NDEBUG
+		assert( getCurrentItem()==m);
+		#endif
+
 	}else{
+
 		return false;
 	}
 }
@@ -102,10 +106,10 @@ bool ed::ListaDoblementeEnlazadaOrdenadaMunicipios::isLastItem() const{
 ed::Municipio const & ed::ListaDoblementeEnlazadaOrdenadaMunicipios:: getCurrentItem() const{
 
 	#ifndef NDEBUG
- 		assert( isEmpty()==false);
- 	#endif
+    		assert( isEmpty()==false);
+    	#endif
 
-   	return getCurrent()->getItem();
+ 	return getCurrent()->getItem();
 
 }
 
@@ -125,14 +129,14 @@ ed::Municipio const & ed::ListaDoblementeEnlazadaOrdenadaMunicipios:: getNextIte
 
 	#ifndef NDEBUG
 
-	assert(isEmpty()==false);
-	assert(isLastItem()==false);
+     assert(isEmpty()==false);
+     assert(isLastItem()==false);
 
-	#endif
+     #endif
 
-	NodoDoblementeEnlazadoMunicipio *aux;
-	aux-> getNext();
-	return aux->getItem();
+     NodoDoblementeEnlazadoMunicipio *aux;
+     aux-> getNext();
+     return aux->getItem();
 
 
 }
@@ -140,10 +144,10 @@ ed::Municipio const & ed::ListaDoblementeEnlazadaOrdenadaMunicipios:: getNextIte
 void ed::ListaDoblementeEnlazadaOrdenadaMunicipios::gotoHead(){
 
 	#ifndef NDEBUG
-   		assert( isEmpty()==false);
+   		assert(isEmpty()==false);
    	#endif
 
-	setCurrent(getHead());
+	  setCurrent(getHead());
 
    	#ifndef NDEBUG
    		assert( isFirstItem()==true);
@@ -171,8 +175,8 @@ void ed::ListaDoblementeEnlazadaOrdenadaMunicipios::gotoLast(){
 void ed::ListaDoblementeEnlazadaOrdenadaMunicipios::gotoPrevious(){
 
 	#ifndef NDEBUG
-   		assert( isEmpty()==false);
-   	#endif
+	   	assert( isEmpty()==false);
+	#endif
 
 	setCurrent (getCurrent()->getPrevious());
 
@@ -189,123 +193,83 @@ void ed::ListaDoblementeEnlazadaOrdenadaMunicipios::gotoNext(){
 	setCurrent (getCurrent()->getNext());
 
 }
-/*
-bool ed::ListaDoblementeEnlazadaOrdenadaMunicipios::find(ed::Municipio  const & m){
-
-	// Si la lista está vacía, no lo encuentra
-	if(isEmpty()==true){
-
-		return false;
-	}
-
-	gotoHead();
-
-	while(isLastItem()==false){
-
-		if(m == getCurrentItem()){
-
-			#ifndef NDEBUG
-	   			assert( getCurrentItem()==m);
-	   		#endif
-
-			return true;
-		}else{
-
-			gotoNext();
-		}
-	}
-
-	if(m ==getCurrentItem()){
-
-		#ifndef NDEBUG
-	    	assert( getCurrentItem()==m);
-	    	#endif
-
-		return true;
-	}else{
-		return false;
-	}
-}
-*/
 
 void ed::ListaDoblementeEnlazadaOrdenadaMunicipios::insert(ed::Municipio const &m){
 
 	NodoDoblementeEnlazadoMunicipio *aux = new NodoDoblementeEnlazadoMunicipio (m, NULL, NULL);
 
-	//la lista esta vacia
-	//Insertar como cabeza
-	if(isEmpty()==true)
-  {
-		setHead(aux);//Es la cabeza
-		setCurrent(getHead());
-	}
-	else
-  {//no esta vacia
     #ifndef NDEBUG
     assert(find(m)==false);
+    int n = nItems();
     #endif
 
-    gotoHead();
-		  while(isLastItem()==false)
-      {
-			  if(m<getCurrentItem())
-        {
+	//la lista esta vacia
+	//Insertar como cabeza
+	if(isEmpty()==true){
+
+		setHead(aux);//Es la cabeza
+		setCurrent(getHead());
+
+	}else{//no esta vacia
+
+     gotoHead();
+
+	while(isLastItem()==false){
+			  if(m<getCurrentItem()){
 				  break; //Me salgo del bucle
 			  }
 
         gotoNext();
-		  }
+   	}
 
-	    if(nItems()==1)
-      {
-	   		if(m < getCurrentItem())
-        { //va a ser la cabeza
+	    if(nItems()==1){
+
+			if(m < getCurrentItem()){ //va a ser la cabeza
+
 	   			aux->setPrevious(NULL);//va a ser la cabeza
 	   			aux->setNext(getCurrent());
 	   			getCurrent()->setPrevious(aux);
 	   			gotoPrevious(); //apunta al nuevo nodo
 	   			setHead(getCurrent());//es la cabeza
 
-	   		}
-        else
-        {  //insertarlo despues de la cabeza
-	   		  aux->setNext(NULL);
-				  aux->setPrevious(getCurrent());
-				  getCurrent()->setNext(aux);
-				  gotoNext();//apunta al nuevo nodo
+	   		}else{  //insertarlo despues de la cabeza
+
+				aux->setNext(NULL);
+				aux->setPrevious(getCurrent());
+				getCurrent()->setNext(aux);
+				gotoNext();//apunta al nuevo nodo
 	   		}
 	   		return;
 	   	}
-	   	if(isFirstItem()==true)
-      { //si hay que insertar el primero
-				aux->setPrevious(NULL);
+
+	   	if(isFirstItem()==true){ //si hay que insertar el primero
+
+			  aux->setPrevious(NULL);
 			  aux->setNext(getCurrent());
 			  getCurrent()->setPrevious(aux);
 			  gotoPrevious();
 			  setHead(getCurrent());
-		  }
-      else if(isLastItem()==true)
-      {//insertar el ultimo
-			  if(getCurrentItem()<m)
-        {
+
+		  }else if(isLastItem()==true){//insertar el ultimo
+
+			if(getCurrentItem()<m){
+
 				  aux->setNext(NULL);
 				  aux->setPrevious(getCurrent());
 				  getCurrent()->setNext(aux);
 				  gotoNext();
-				}
-        else
-        { //insertar penultimo
+
+			}else{ //insertar penultimo
+
 				  aux->setPrevious(getCurrent()->getPrevious());
 				  aux->setNext(getCurrent());
 				  getCurrent()->setPrevious(aux);
 				  gotoPrevious();
 				  getCurrent()->getPrevious()->setNext(getCurrent());
-				}
+			}
 				return;
 			//entre medias
-			}
-      else
-      {
+			}else{
 				aux->setPrevious(getCurrent()->getPrevious());
 				aux->setNext(getCurrent());
 				getCurrent()->setPrevious(aux);
@@ -314,10 +278,10 @@ void ed::ListaDoblementeEnlazadaOrdenadaMunicipios::insert(ed::Municipio const &
 			}
 	}
 
-   	#ifndef NDEBUG
-    assert(getCurrentItem()==m);
-   	assert(nItems()==nItems()+1);
-   	#endif
+   #ifndef NDEBUG
+   assert(getCurrentItem()==m);
+   assert(nItems()== n +1);
+   #endif
 
 }
 

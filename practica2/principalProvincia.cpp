@@ -9,8 +9,8 @@
 
 /*!
  \mainpage Implementación de una provincia utilizando una lista doblemente enlazada y ordenada de municipios
- \author
- \date
+ \author David Sanchez Fernandez
+ \date 09/04/2018
  \version  1.0
 */
 
@@ -86,8 +86,7 @@ int main(){
 
 			//////////////////////////////////////////////////////////////////////////////
 			case 6:
-					std::cout << "[6] Modificar datos de la provincia: código o nombre"
-							  << std::endl;
+					std::cout << "[6] Modificar datos de la provincia: código o nombre"<< std::endl;
 				  	ed::modificarDatosDeProvincia(provincia);
 					break;
 

@@ -36,12 +36,11 @@ int ed::menu()
 	std::cout << "Programa principial | Opciones del menú";
 	std::cout << RESET;
 
-	//////////////////////////////////////////////////////////////////////////////
 	posicion++;
 
 	PLACE(posicion++,10);
 	std::cout <<  "[1] Comprobar si la provincia tiene municipios";
-	//////////////////////////////////////////////////////////////////////////////
+
 	posicion++;
 
 	PLACE(posicion++,10);
@@ -50,7 +49,6 @@ int ed::menu()
 	PLACE(posicion++,10);
 	std::cout << "[3] Grabar la provincia en un fichero";
 
-	//////////////////////////////////////////////////////////////////////////////
 	posicion++;
 
 	PLACE(posicion++,10);
@@ -119,7 +117,7 @@ void ed::comprobarProvinciaVacia(ed::Provincia &provincia){
 
 void ed::cargarProvincia(ed::Provincia &provincia){
 
-	if(provincia.hayMunicipios() == false){
+	if(provincia.hayMunicipios() == true){
 	 std::cout<<"Ya hay una provincia, borre la que hay si quiere cargar una"<< std::endl;
 
 	}else{
@@ -144,29 +142,24 @@ void ed::cargarProvincia(ed::Provincia &provincia){
 
 void ed::grabarProvincia(ed::Provincia  &provincia){
 
-	if(provincia.hayMunicipios() == true){
-
-		std::cout<<BRED<<"Error, provincia vacia"<<RESET<< std::endl;
+	if(provincia.hayMunicipios() == false){
+			std::cout<<BRED<<"Error, provincia vacia"<<RESET<< std::endl;
 
 		}else{
-
-			std::string nombreFichero;
-			std::cout <<BGREEN<<"Nombre del fichero"<<RESET<< std::endl;
-			std::cin >> nombreFichero;
-
+		std::string nombreFichero;
+		std::cout <<BGREEN<<"Nombre del fichero"<<RESET<< std::endl;
+		std::cin >> nombreFichero;
 		if(provincia.grabarFichero(nombreFichero)==true){
-
 			std::cout << "Provincia grabada "<<std::endl;
-
-		}else{
-
+		}
+		else{
 			std::cout<<BRED<<"No se encontro fichero"<<RESET<<std::endl;
 			std::cout <<BRED<< "Provincia no grabada "<<RESET<<std::endl;
 
 		}
 	  	getchar();
-	}
 
+		}
 	return;
 
 }
@@ -175,22 +168,27 @@ void ed::grabarProvincia(ed::Provincia  &provincia){
 
 void ed::consultarDatosDeProvincia(ed::Provincia &provincia){
 
-	if(provincia.hayMunicipios() == true){
+	if(provincia.getNombre()=="" and provincia.getCodigo()==0)
+		{
+			std::cout << BIRED << "La provincia esta vacia" << RESET << std::endl;
+			return;
+		}
 
-		std::cout<<BRED<<"Provincia vacia, por tanto no puede consultar nada"<< RESET<< std::endl;
-
-	}else{
-
-		std::cout <<BYELLOW<< "Nombre de la provincia: " <<RESET << provincia.getNombre() << std::endl;
-		std::cout <<BYELLOW<< "Codigo de la provincia:  " <<RESET << provincia.getCodigo() << std::endl;
-		std::cout << BIPURPLE<< "Numero de hombres de la provincia" << RESET << provincia.getTotalHombres() << std::endl;
-		std::cout << BIPURPLE<< "Numero de mujeres de la provincia" << RESET << provincia.getTotalMujeres() << std::endl;
-		std::cout << BIPURPLE<< "Numero de habitantes de la provincia" << RESET << provincia.getTotalHabitantes() << std::endl;
-
-
-	}
-
-	return;
+		if(provincia.hayMunicipios()==true)
+		{
+			std::cout << BIYELLOW << "Nombre: " << RESET << provincia.getNombre() << std::endl;
+			std::cout << BIYELLOW << "Codigo: " << RESET << provincia.getCodigo() << std::endl;
+			std::cout << BIBLUE << "Numero de municipios: " << RESET << provincia.getNumeroMunicipios() << std::endl;
+			std::cout << BIBLUE << "Total de hombres: " << RESET << provincia.getTotalHombres() << std::endl;
+			std::cout << BIBLUE << "Total de mujeres: " << RESET << provincia.getTotalMujeres() << std::endl;
+			std::cout << BIBLUE << "Total de habitantes: " << RESET << provincia.getTotalHabitantes() << std::endl;
+		}
+		else{
+			std::cout << BIYELLOW << "Provincia: " << RESET << provincia.getNombre() << std::endl;
+			std::cout << BIYELLOW << "Codigo: " << RESET << provincia.getCodigo() << std::endl;
+			std::cout << BIRED << "ERROR, la provincia esta vacia " << RESET << std::endl;
+		}
+		return;
 }
 
 
@@ -198,8 +196,18 @@ void ed::consultarDatosDeProvincia(ed::Provincia &provincia){
 void ed::mostrarMunicipiosDeProvincia(ed::Provincia & provincia){
 
 	ed::Municipio municipio;
-	municipio.escribirMunicipio();
 
+		if(provincia.hayMunicipios() == false){
+			std::cout<<BRED<<"Provincia vacia, por tanto no puede consultar nada"<< RESET<< std::endl;
+
+		}
+		else{
+		std::cout <<BYELLOW<< "Nombre de la provincia: " <<RESET<<provincia.getNombre() << std::endl;
+		std::cout <<BYELLOW<< "Codigo de la provincia:  " <<RESET<<provincia.getCodigo() << std::endl;
+		std::cout << BIPURPLE<< "Lista: " <<RESET<< std::endl;
+
+		provincia.escribirMunicipios();
+		}
 	return;
 }
 
@@ -207,86 +215,95 @@ void ed::mostrarMunicipiosDeProvincia(ed::Provincia & provincia){
 ////////////////////////////////////////////////////////////////////////
 void ed::modificarDatosDeProvincia(ed::Provincia &provincia){
 
-	int opcion, codigo;
-	std::string nombre;
-
-	do{
-		std::cout << BIYELLOW  << "Nombre de la provincia: "  << RESET
-				  << provincia.getNombre() << std::endl;
-		std::cout << BIYELLOW << "Código de la provincia: " << RESET
-				  << provincia.getCodigo() << std::endl  << std::endl;
-
-		std::cout << "Indique qué dato desea modificar: " << std::endl;
-		std::cout << BIBLUE << "(1) Nombre " << std::endl;
-		std::cout << BIBLUE << "(2) Código" << std::endl  << std::endl;
-		std::cout << BIRED << "(0) Salir" << std::endl << std::endl  << std::endl;
-		std::cout << BIGREEN;
-		std::cout << "Opción: ";
-		std::cout << RESET;
-
-		// Se lee el número de opción
-		std::cin >> opcion;
-
-    	// Se elimina el salto de línea del flujo de entrada
-	    std::cin.ignore();
-
-		std::cout << std::endl;
-
-		switch(opcion)
+	if(provincia.hayMunicipios() == false)
 		{
-			case 0:
-					// Fin de las modificaciones
-					break;
-			case 1:
-					std::cout << BIGREEN;
-					std::cout << "Nuevo nombre de la provincia: ";
-					std::cout << RESET;
-					std::getline(std::cin,nombre);
-					provincia.setNombre(nombre);
-					break;
+				std::cout<<BRED<<"Provincia vacia, por tanto no hay nada que modificar"<< RESET<<std::endl;
 
-			case 2:
-					std::cout << BIGREEN;
-					std::cout << "Nuevo código de la provincia: ";
-					std::cout << RESET;
-					std::cin >> codigo;
-					provincia.setCodigo(codigo);
-					break;
-			default:
-					std::cout << BIRED << "Opción incorrecta:" << RESET
-							  << opcion << std::endl;
+		}else{
+
+	// QUITAR LOS COMENTARIOS CUANDO SE HAYA CODIFICADO LA CLASE Provincia
+
+
+		int opcion, codigo;
+		std::string nombre;
+
+		do{
+			std::cout << BIYELLOW  << "Nombre de la provincia: "  << RESET
+					  << provincia.getNombre() << std::endl;
+			std::cout << BIYELLOW << "Código de la provincia: " << RESET
+					  << provincia.getCodigo() << std::endl;
+
+			std::cout << "Indique qué dato desea modificar: " << std::endl;
+			std::cout << BIBLUE << "(1) Nombre " << std::endl;
+			std::cout << BIBLUE << "(2) Código" << std::endl ;
+			std::cout << BIRED << "(0) Salir" << std::endl << std::endl  << std::endl;
+			std::cout << BIGREEN;
+			std::cout << "Opción: ";
+			std::cout << RESET;
+
+			// Se lee el número de opción
+			std::cin >> opcion;
+
+	    	// Se elimina el salto de línea del flujo de entrada
+		    std::cin.ignore();
+
+			std::cout << std::endl;
+
+			switch(opcion)
+			{
+				case 0:
+						// Fin de las modificaciones
+						break;
+				case 1:
+						std::cout << BIGREEN;
+						std::cout << "Nuevo nombre de la provincia: ";
+						std::cout << RESET;
+						std::getline(std::cin,nombre);
+						provincia.setNombre(nombre);
+						break;
+
+				case 2:
+						std::cout << BIGREEN;
+						std::cout << "Nuevo código de la provincia: ";
+						std::cout << RESET;
+						std::cin >> codigo;
+						provincia.setCodigo(codigo);
+						break;
+				default:
+						std::cout << BIRED << "Opción incorrecta:" << RESET
+								  << opcion << std::endl;
+			}
+		}while (opcion != 0);
 		}
-	}while (opcion != 0);
 
-	return;
+		return;
 }
 
 
 void ed::borrarTodosLosMunicipiosDeProvincia(ed::Provincia &provincia)
 {
-	if(provincia.hayMunicipios() == true){
+	if(provincia.hayMunicipios() == false)
+		{
+			std::cout<<BRED<<"Provincia vacia, por tanto no puede borrar nada"<< RESET<< std::endl;
+		}
+		else{
+			provincia.borrarTodosLosMunicipios();
+			std::cout <<BCYAN<< "Los municipios han sido borrados correctamente" <<RESET<< std::endl;
+		}
 
-		std::cout<<BRED<<"Provincia vacia, por tanto no puede borrar nada"<< RESET<< std::endl;
-
-	}else{
-
-		provincia.borrarTodosLosMunicipios();
-		std::cout <<BCYAN<< "Los municipios han sido borrados correctamente" <<RESET<< std::endl;
-	}
-
-	return;
+		return;
 }
 
 
 void ed::consultarMunicipioDeProvincia(ed::Provincia &provincia){
 
 	std::string nombre;
-	if(provincia.hayMunicipios()==true){
-
+	if(provincia.hayMunicipios()==false)
+	{
 		std::cout<<BRED<<"Provincia vacia, no hay nada para consultar "<<RESET<<std::endl;
 
-	}else{
-
+	}else
+	{
 	std::cout <<BYELLOW<< "Nombre del municipio que quiere consultar " <<RESET<< std::endl;
 	getline(std::cin,nombre);
 
@@ -306,12 +323,12 @@ void ed::consultarMunicipioDeProvincia(ed::Provincia &provincia){
 
 void ed::insertarMunicipioEnProvincia(ed::Provincia &provincia){
 
-	ed::Municipio m;
-	ed::Provincia p;
+	ed::Municipio municipio;
 	std::cout<<BGREEN;
-	m.leerMunicipio();
+	municipio.leerMunicipio();
 	std::cout <<RESET;
-	p.insertarMunicipio(m);
+
+	provincia.insertarMunicipio(municipio);
 
 	std::cout<<BCYAN<<"Municipio insertado "<<RESET<<std::endl;
 	return;
@@ -325,7 +342,7 @@ void ed::borrarMunicipioDeProvincia(ed::Provincia &provincia)
 {
 	bool control;
 	std::string nombre;
-	ed::Municipio m;
+	ed::Municipio municipio;
 
 
 	std::cout <<BYELLOW<< "Nombre: "<<RESET;
@@ -344,7 +361,7 @@ void ed::borrarMunicipioDeProvincia(ed::Provincia &provincia)
 			std::cout <<BCYAN<< "El municipio ha sido borrado correctamente" <<RESET<< std::endl;
 	}
 	else{
-		std::cout << "El municipio  "<< nombre << " " << m.getCodigoPostal() << " ";
+		std::cout << "El municipio  "<< nombre ;
 		std::cout << BRED<<"no pertenece a la provincia"<<RESET<<std::endl;
 	}
 

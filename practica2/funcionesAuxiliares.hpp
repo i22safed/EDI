@@ -1,17 +1,14 @@
 /*!
   \file   funcionesAuxiliares.hpp
   \brief  Funciones auxiliares para el programa principal de la práctica 2
-  \author 
-  \date  
+  \author David Sanchez Fernandez
+  \date  09/04/2018
 */
 
 #ifndef _FUNCIONESAUXILIARES_HPP_
 #define _FUNCIONESAUXILIARES_HPP_
 
 #include "Provincia.hpp"
-
-
-// SE DEBEN INCLUIR LOS COMENTARIOS DE DOXYGEN DE CADA FUNCIÓN
 
 namespace ed
 {
@@ -64,4 +61,3 @@ namespace ed
 
 // Fin de _FUNCIONESAUXILIARES_HPP_
 #endif
-

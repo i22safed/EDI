@@ -228,7 +228,7 @@ class Provincia{
 
 	//! \name Función de escritura de la clase Provincia
 
-	void escribirMunicipios(std::string const & nombre);
+	void escribirMunicipios();
 
 
 	/////////////////////////////////////////////////////////////////////

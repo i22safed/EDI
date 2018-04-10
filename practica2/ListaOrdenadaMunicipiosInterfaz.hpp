@@ -1,8 +1,8 @@
 /*!
 	\file   ListaOrdenadaMunicipiosInterfaz.hpp
 	\brief  Clase abstracta de una lista enlazada y ordenada de Municipios
-	\author
-	\date
+	\author David Sanchez Fernandez
+	\date 09/04/2018
 	\version 1.0
 
 */
@@ -12,17 +12,6 @@
 
 // Definición de la clase del campo informativo del nodo de la lista
 #include "Municipio.hpp"
-
-
-/////////////////////////////////////////////////////////////////////////////////////
-// IMPORTANTE
-
-// SE HAN COMENTADO ALGUNAS FUNCIONES PARA QUE NO SE GENEREN ERRORES DE COMPILACIÓN
-
-// AL QUITAR EL COMENTARIO, TAMBIÉN SE DEBE CODIFICAR LA FUNCIÓN EN LA CLASE HEREDERA
-/////////////////////////////////////////////////////////////////////////////////////
-
-
 
 /*!
 	\namespace ed

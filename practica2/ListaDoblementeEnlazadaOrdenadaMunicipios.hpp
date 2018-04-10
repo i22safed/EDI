@@ -46,33 +46,41 @@ namespace ed {
 
     inline ed::NodoDoblementeEnlazadoMunicipio * getHead() const
 	{
-		return this->_head;
+          #ifndef NDEBUG
+               assert(isEmpty()==false);
+          #endif
+
+         return this->_head;
 	}
 
 	inline ed::NodoDoblementeEnlazadoMunicipio * getCurrent() const
 	{
-		return this->_current;
+          #ifndef NDEBUG
+               assert(isEmpty()==false);
+          #endif
+
+        return this->_current;
 	}
 
     //! \name Modificadores privados
 
 	inline void setHead(ed::NodoDoblementeEnlazadoMunicipio *head)
 	{
-		this->_head = head;
+          this->_head = head;
 
 		#ifndef NDEBUG
 			// Se comprueba la postcondición
-			assert(this->getHead() == head);
+			assert(this->_head == head);
 		#endif //NDEBUG
 	}
 
     inline void setCurrent(ed::NodoDoblementeEnlazadoMunicipio *current)
 	{
-		this->_current = current;
+          this->_current = current;
 
 		#ifndef NDEBUG
 			// Se comprueba la postcondición
-			assert(this->getCurrent() == current);
+			assert(this->_current == current);
 		#endif //NDEBUG
 	}
 
@@ -90,13 +98,11 @@ namespace ed {
 	*/
 	inline ListaDoblementeEnlazadaOrdenadaMunicipios()
     {
-            setHead(NULL);
-            setCurrent(NULL);
-
-            #ifndef NDEBUG
-            // Se comprueba la postcondición
-            assert(isEmpty()==true);
-            #endif //NDEBUG
+          setHead(NULL);
+          setCurrent(NULL);
+          #ifndef NDEBUG
+               assert(isEmpty()==true);
+          #endif
 	}
 
 
@@ -113,9 +119,8 @@ namespace ed {
           setCurrent(NULL);
 
           #ifndef NDEBUG
-               // Se comprueba la postcondición
-               assert(isEmpty()==true);
-          #endif //NDEBUG
+          assert(isEmpty()==true);
+          #endif
      }
 
 
@@ -129,11 +134,11 @@ namespace ed {
     */
 	inline bool isEmpty() const{
 
-          if(getHead()==NULL){
-               return true;
-          }else{
-               return false;
-          }
+          if(this->_head==NULL){
+      			return true;//esta vacia
+      	}else{
+      			return false;  //esta llena
+      	}
 	}
 
      int nItems() const;

@@ -16,29 +16,27 @@
 
 // Para comprobar las pre y post condiciones
 #include <cassert>
-
 #include "Provincia.hpp"
-
-
-// DEBES CODIFICAR LAS FUNCIONES DE LA CLASE Provincia
-
-///////////////////////////////////////////////////////////////////////////////
+#include "macros.hpp"
 
 // OSBSERVADORES
 
 bool ed::Provincia::existeMunicipio(std::string const &nombre){
 
-     this->_listaMunicipios.gotoHead();
+     if(_listaMunicipios.isEmpty()==false){
 
-     while(not this->_listaMunicipios.isLastItem()){
+     		this->_listaMunicipios.gotoHead();
+     		while((this->_listaMunicipios.getCurrentItem().getNombre() != nombre) and (this->_listaMunicipios.isLastItem() == false)){
+     			this->_listaMunicipios.gotoNext();
+     		}
 
-          if(this->_listaMunicipios.getCurrentItem().getNombre()==nombre){
+               if((this->_listaMunicipios.isLastItem() == true) and (this->_listaMunicipios.getCurrentItem().getNombre() != nombre)){
+     			return false;
+     		}
 
-               return true;
-          }
-
-          this->_listaMunicipios.gotoNext();
-
+               if(this->_listaMunicipios.getCurrentItem().getNombre() == nombre){
+     			return true;
+     		}
      }
 
      return false;
@@ -47,9 +45,12 @@ bool ed::Provincia::existeMunicipio(std::string const &nombre){
 
 ed::Municipio const & ed::Provincia::getMunicipio(std::string const &nombre){
 
+     #ifndef NDEBUG
           assert(existeMunicipio(nombre)==true);
-          this->existeMunicipio(nombre);
-          return this->_listaMunicipios.getCurrentItem();
+     #endif
+
+     this->existeMunicipio(nombre);
+     return this->_listaMunicipios.getCurrentItem();
 }
 
 int ed::Provincia::getTotalHombres(){
@@ -89,9 +90,7 @@ int ed::Provincia::getTotalMujeres(){
 int ed::Provincia::getTotalHabitantes(){
 
      int valorDevuelto = getTotalHombres() + getTotalMujeres();
-
      assert(valorDevuelto == getTotalHombres()+getTotalMujeres());
-
      return valorDevuelto;
 
 }
@@ -114,27 +113,34 @@ void ed::Provincia::setCodigo(int codigo){
 
 void ed::Provincia::insertarMunicipio(ed::Municipio const & m){
 
-     assert(existeMunicipio(m.getNombre())==false);
+     #ifndef NDEBUG
+	    assert(existeMunicipio(m.getNombre()) == false);
+	#endif
 
-     int old=this->_listaMunicipios.nItems();
-     this->_listaMunicipios.insert(m);
+	int old=this->_listaMunicipios.nItems();
+	this->_listaMunicipios.insert(m);
 
-     assert(existeMunicipio(m.getNombre())==false);
-     assert(getNumeroMunicipios() == (old + 1));
+	#ifndef NDEBUG
+	    assert(existeMunicipio(m.getNombre()) == true);
+	    assert(getNumeroMunicipios() == (old+1));
+	#endif
 
 };
 
 
 void ed::Provincia::borrarMunicipio(std::string const & nombre){
 
-     assert(existeMunicipio(nombre)==true);
+     #ifndef NDEBUG
+	    assert(existeMunicipio(nombre) == true);
+	#endif
 
-     int old = this->_listaMunicipios.nItems();
+	int old=this->_listaMunicipios.nItems();
+	this->_listaMunicipios.remove();
 
-     _listaMunicipios.remove();
-
-     assert(existeMunicipio(nombre)==false);
-     assert(getNumeroMunicipios() == (old-1));
+	#ifndef NDEBUG
+	    assert(existeMunicipio(nombre) == false);
+	    assert(getNumeroMunicipios() == (old-1));
+	#endif
 
 }
 
@@ -142,7 +148,9 @@ void ed::Provincia::borrarTodosLosMunicipios(){
 
      this->_listaMunicipios.removeAll();
 
-     assert(hayMunicipios()==false);
+     #ifndef NDEBUG
+	    assert(hayMunicipios() == false);
+	#endif
 
 }
 
@@ -153,17 +161,20 @@ void ed::Provincia::borrarTodosLosMunicipios(){
 
 // FUNCIÓN DE ESCRITURA
 
-void ed::Provincia::escribirMunicipios(std::string const & nombre){
+void ed::Provincia::escribirMunicipios(){
 
-     std::cout << this->getNombre() << "\t\t" << std::endl << this->getCodigo() << "\t" << std::endl;
+     std::cout << this->getNombre() << "\t\t" << this->getCodigo() << "\t" << std::endl;
 
-     this->_listaMunicipios.gotoHead();
+		if(_listaMunicipios.isEmpty()==false){
+               this->_listaMunicipios.gotoHead();
 
-     while(this->_listaMunicipios.isLastItem() != true)
-     {
-          this->_listaMunicipios.getCurrentItem().escribirMunicipio();
-          this->_listaMunicipios.gotoNext();
-     }
+               while(this->_listaMunicipios.isLastItem() != true){
+
+                    this->_listaMunicipios.getCurrentItem().escribirMunicipio();
+                    this->_listaMunicipios.gotoNext();
+
+          }
+	}
 
 }
 
@@ -173,59 +184,69 @@ void ed::Provincia::escribirMunicipios(std::string const & nombre){
 
 bool ed::Provincia::cargarFichero(std::string const & nombre){
 
-     Municipio m;
-     std::string linea;
-     std::ifstream file;
-     file.open(nombre.c_str());
-     if(file.is_open()){
+     ed::Municipio aux;
+	std::string linea;
+	std::ifstream fich;
+	fich.open(nombre.c_str());
+	if(fich.fail())
+	{
+		std::cout << "Imposible abrir fichero de entrada" << std::endl;
+		return false;
+	}
+	else
+	{
+		getline(fich, linea, ' ');
+		this->setCodigo(atoi(linea.c_str()));
+		getline(fich, linea, '\n');
+		this->setNombre(linea);
 
-          std::cout << "Error al abrir el fichero " << nombre << std::endl;
-          return false;
+		while(getline(fich, linea, ' '))
+		{
+			aux.setCodigoPostal(atoi(linea.c_str()));
+			getline(fich, linea, ';');
+			aux.setNombre(linea);
+			getline(fich, linea, ';');
+			aux.setHombres(atoi(linea.c_str()));
+			getline(fich, linea, ';');
+			aux.setMujeres(atoi(linea.c_str()));
 
-     }else{
-
-          getline(file, linea, ' ');
-          this->setCodigo(atoi(linea.c_str()));
-          getline(file, linea, '\n');
-          this->setNombre(linea);
-
-          while(getline(file, linea, ' ')){
-
-               m.setCodigoPostal(atoi(linea.c_str()));
-               getline(file, linea, ';');
-               m.setNombre(linea);
-               getline(file, linea, ';');
-               m.setHombres(atoi(linea.c_str()));
-               getline(file, linea, ';');
-               m.setMujeres(atoi(linea.c_str()));
-
-               this->_listaMunicipios.insert(m);
-          }
-
-          file.close();
-          return true;
-     }
-
+			this->_listaMunicipios.insert(aux);
+		}
+		fich.close();
+		return true;
+	}
 
 }
 
 
 bool ed::Provincia::grabarFichero(std::string const & nombre){
 
-     std::ofstream file;
-     std::string linea;
+     Municipio m;
+     std::ofstream fichero (nombre.c_str());
 
-     file.open(nombre.c_str());
+     if(fichero.is_open()){
+          fichero << getCodigo() << " " << getNombre() << std::endl;
 
-     if(file.is_open()){
+          _listaMunicipios.gotoHead();
 
-          std::cout << "Error al abrir el fichero "<< nombre << std::endl;
-          return false;
+          while(_listaMunicipios.isLastItem()!=true){
+
+               fichero << _listaMunicipios.getCurrentItem() << std::endl;
+               std::cout << BIYELLOW << "Municipio grabado" << RESET << _listaMunicipios.getCurrentItem() << std::endl;
+               _listaMunicipios.gotoNext();
+          }
+
+          std::cout << BIYELLOW << "Municipio grabado" << RESET << _listaMunicipios.getCurrentItem() << std::endl;
+          fichero << _listaMunicipios.getCurrentItem() << std::endl;
 
      }else{
 
-          linea=getNombre();
-          file << linea;
-          return true;
+          std::cout << "Error al abrir fichero" << std::endl;
+          return false;
+
      }
+
+     fichero.close();
+     return true;
+
 }
