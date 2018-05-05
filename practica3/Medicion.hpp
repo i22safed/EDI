@@ -1,12 +1,12 @@
-/*! 
+/*!
    \file Medicion.hpp
-   \brief Fichero de la clase Medicion: medición de una estación meteorológica 
+   \brief Fichero de la clase Medicion: medición de una estación meteorológica
 */
 
 #ifndef _MEDICION_HPP_
 #define _MEDICION_HPP_
 
-// Entrada y salida 
+// Entrada y salida
 #include <iostream>
 
 // Para controlar las precondiciones y postcondiciones mediante asertos
@@ -26,20 +26,39 @@ using std::ostream;
 // Se incluye la clase Medicion dentro del espacio de nombres de la asigantura: ed
 namespace ed {
 
-//!  Definición de la clase Medicion 
-class Medicion
-{
-  //! \name Atributos privados de la clase Medicion
-   private: 
+//!  Definición de la clase Medicion
+class Medicion{
 
-		// COMPLETAR EL CÓDIGO E INCLUIR LOS COMENTARIOS DE DOXYGEN
+  //! \name Atributos privados de la clase Medicion
+   private:
+
+          Fecha _fecha;
+          float _precipitacion;
+
 
    //! \name Funciones o métodos públicos de la clase Medicion
    public:
 
 	//! \name Constructor de la clase Medicion
 
-		// COMPLETAR EL CÓDIGO E INCLUIR LOS COMENTARIOS DE DOXYGEN
+          // Constructor de parametrizado
+
+		Medicion(Fecha fecha=Fecha(1,1,1),float precipitacion=0.0){
+
+               assert((getFecha()==fecha) and (getPrecipitacion()==precipitacion));
+
+          }
+
+          // Constructor de copia
+
+          Medicion(Medicion m){
+
+               setFecha(m.getFecha());
+               setPrecipitacion(m.getPrecipitacion());
+
+
+          }
+
 
 	//! \name Observadores: funciones de consulta de la clase Medicion
 
@@ -52,7 +71,7 @@ class Medicion
 
 
 	//! \name Operadores
-   
+
 		// COMPLETAR EL CÓDIGO E INCLUIR LOS COMENTARIOS DE DOXYGEN
 
 
@@ -74,4 +93,4 @@ class Medicion
 } // \brief Fin de namespace ed.
 
 //  _MEDICION_HPP_
-#endif 
+#endif

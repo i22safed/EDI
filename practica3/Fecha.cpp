@@ -1,4 +1,4 @@
-/*! 
+/*!
    \file  Fecha.cpp
    \brief Fichero que contiene el código de las funciones de la clase Fecha
 */
@@ -9,16 +9,15 @@
 
 // atoi
 #include <stdlib.h>
-
 #include "Fecha.hpp"
 
 /*
  Definiciones de esBisiesto y esCorrecta
 */
 
-bool ed::Fecha::esBisiesto() const
-{
-	if ( (this->getAgno() % 4 == 0) and 
+bool ed::Fecha::esBisiesto() const{
+
+	if ( (this->getAgno() % 4 == 0) and
          ( (not (this->getAgno() % 100 == 0)) or  (this->getAgno() % 400 == 0) )
 	  )
 		return true;
@@ -27,8 +26,7 @@ bool ed::Fecha::esBisiesto() const
 }
 
 
-bool ed::Fecha::esCorrecta() const
-{
+bool ed::Fecha::esCorrecta() const{
 
  if (this->getAgno() > 0)
 	{
@@ -56,7 +54,7 @@ bool ed::Fecha::esCorrecta() const
 				  {
 					if ( (this->getDia() >= 1) and (this->getDia() <= 29) )
 						return true;
-					else 
+					else
 						return false;
 				   }
 				  // No es bisiesto
@@ -64,7 +62,7 @@ bool ed::Fecha::esCorrecta() const
 					{
 					  if ( (this->getDia() >= 1) and (this->getDia() <= 28) )
 						return true;
-					  else 
+					  else
 						return false;
 					}
 					break;
@@ -94,16 +92,16 @@ bool ed::Fecha::esCorrecta() const
  Definiciones de las funciones de lectura y escritura de la clase Fecha
 */
 
-void ed::Fecha::escribirFecha()const
-{
-  std::cout << this->getDia() << "-" 
+void ed::Fecha::escribirFecha()const{
+
+  std::cout << this->getDia() << "-"
             << this->getMes() << "-"
-            << this->getAgno() << std::endl; 
+            << this->getAgno() << std::endl;
 }
 
 
-void ed::Fecha::leerFecha()
-{
+void ed::Fecha::leerFecha(){
+
   double dia, mes, agno;
 
   std::cout << "\n Lectura de una fecha" << std::endl;
@@ -117,15 +115,16 @@ void ed::Fecha::leerFecha()
   std::cout << " Año --> ";
   std::cin >> agno;
 
-  // Se asignan los valores leídos a los atributos del vertice   
+  // Se asignan los valores leídos a los atributos del vertice
   this->setDia(dia);
   this->setMes(mes);
   this->setAgno(agno);
 
   #ifndef NDEBUG
-  // Se comprueba la postcondición
-  assert(this->esCorrecta() == true);
+  	// Se comprueba la postcondición
+  	assert(this->esCorrecta() == true);
   #endif //NDEBUG
+
 }
 
 
@@ -164,6 +163,6 @@ istream &operator>>(istream &stream, ed::Fecha &fecha)
   fecha.setAgno(atoi(cadena.c_str()));
 
   return stream;
-} 
+}
 
 } // Fin del espacio de nombres ed
