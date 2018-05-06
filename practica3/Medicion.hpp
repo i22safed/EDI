@@ -43,7 +43,7 @@ class Medicion{
 
           // Constructor de parametrizado
 
-		Medicion(Fecha fecha=Fecha(1,1,1),float precipitacion=0.0){
+     	Medicion(Fecha fecha=Fecha(1,1,1),float precipitacion=0.0){
 
                assert((getFecha()==fecha) and (getPrecipitacion()==precipitacion));
 
@@ -51,33 +51,75 @@ class Medicion{
 
           // Constructor de copia
 
-          Medicion(Medicion m){
+          inline Medicion(Medicion &m){
 
-               setFecha(m.getFecha());
-               setPrecipitacion(m.getPrecipitacion());
-
+               this->setFecha(m.getFecha());
+               this->setPrecipitacion(m.getPrecipitacion());
 
           }
-
 
 	//! \name Observadores: funciones de consulta de la clase Medicion
 
 		// COMPLETAR EL CÓDIGO E INCLUIR LOS COMENTARIOS DE DOXYGEN
 
+          inline Fecha getFecha()const{return this->_fecha;};
+
+          inline float getPrecipitacion()const{return this->_precipitacion;};
 
 	//! \name Funciones de modificación de la clase Medicion
 
 		// COMPLETAR EL CÓDIGO E INCLUIR LOS COMENTARIOS DE DOXYGEN
 
+          inline void setFecha(Fecha fecha){
+               this->_fecha = fecha;
+               assert(getFecha() == fecha);
+          };
+
+          inline void setPrecipitacion(float precipitacion){
+               assert(precipitacion >= 0.0);
+               this->_precipitacion = precipitacion;
+               assert(getPrecipitacion() == precipitacion);
+          };
 
 	//! \name Operadores
 
 		// COMPLETAR EL CÓDIGO E INCLUIR LOS COMENTARIOS DE DOXYGEN
 
+          inline bool operator == (Medicion const &m)const{
+
+               bool valorDevuelto = false;
+
+               if(this->_fecha == m.getFecha()){
+                    valorDevuelto = true;
+                    assert(valorDevuelto == (this->_fecha == m.getFecha()));
+               }
+
+               return valorDevuelto;
+
+          }
+
+          inline Medicion operator = (Medicion const &m){
+
+               Medicion medicion;
+
+               medicion.setFecha(m.getFecha());
+               medicion.setPrecipitacion(m.getPrecipitacion());
+
+               assert(getFecha()==medicion.getFecha());
+               assert(getPrecipitacion()==medicion.getPrecipitacion());
+
+               return medicion;
+
+          }
 
 	//! \name Funciones de lectura y escritura de la clase Medicion
 
 		// COMPLETAR EL CÓDIGO E INCLUIR LOS COMENTARIOS DE DOXYGEN
+
+          void escribirMedicion()const;
+          void leerMedicion();
+
+
 
 
 

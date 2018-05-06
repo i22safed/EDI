@@ -1,8 +1,8 @@
 /*!
 	\file MonticuloMedicionesInterfaz.hpp
 	\brief Se define la interfaz del TAD MonticuloMediciones.
-	\author 
-	\date  
+	\author
+	\date
 */
 
 #ifndef _MONTICULO_MEDICIONES_INTERFAZ_HPP
@@ -12,15 +12,23 @@
 
 // COMPLETAR EL CÓDIGO E INCLUIR LOS COMENTARIOS DE DOXYGEN
 
-namespace ed
-{
+namespace ed{
 
 	// COMPLETAR EL CÓDIGO E INCLUIR LOS COMENTARIOS DE DOXYGEN
-	class MonticuloMedicionesInterfaz
-	{
+	class MonticuloMedicionesInterfaz{
+
 		public:
 
 			// COMPLETAR EL CÓDIGO E INCLUIR LOS COMENTARIOS DE DOXYGEN
+/*
+			virtual bool isEmpty()const;
+
+			virtual Medicion top()const;
+
+			virtual void insert(ed::Medicion const &m) = 0;
+
+			virtual void remove() = 0;
+*/
 
 
 	}; // Clase MonticuloMedicionesInterfaz

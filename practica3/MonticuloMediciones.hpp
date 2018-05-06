@@ -1,8 +1,8 @@
 /*!
 	\file MonticuloMediciones.hpp
 	\brief Se define el TAD MonticuloMediciones.
-	\author 
-	\date 
+	\author
+	\date
 */
 
 #ifndef _MONTICULO_MEDICIONES_HPP
@@ -24,8 +24,8 @@ namespace ed
 
 // COMPLETAR EL CÓDIGO E INCLUIR LOS COMENTARIOS DE DOXYGEN
 
-class MonticuloMediciones : public MonticuloMedicionesInterfaz
-{
+class MonticuloMediciones : public MonticuloMedicionesInterfaz{
+
 	private:
 
 		//! \name Atributos privados de la clase MonticuloMediciones
@@ -59,9 +59,9 @@ class MonticuloMediciones : public MonticuloMedicionesInterfaz
 
 
 		//! \name Operadores
-   
+
 		// COMPLETAR
- 
+
 
 		////////////////////////////////////////////////////////////////////
 
